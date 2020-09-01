@@ -4,7 +4,7 @@ detekt {
     toolVersion = '1.1.1'
     input = files("./src/main/java")
     parallel = false
-    config = files("./config/detekt/detekt.yml")
+    config = files("./detekt-config.yml")
     buildUponDefaultConfig = true
     disableDefaultRuleSets = false
     debug = false
