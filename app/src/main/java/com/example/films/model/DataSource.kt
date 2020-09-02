@@ -1,4 +1,4 @@
-package com.example.films.Main
+package com.example.films.model
 
 import com.example.films.R
 

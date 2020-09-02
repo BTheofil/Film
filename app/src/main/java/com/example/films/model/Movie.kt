@@ -1,4 +1,4 @@
-package com.example.films.Main
+package com.example.films.model
 
 data class Movie(
     var title: String,
