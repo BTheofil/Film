@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Films</string>
+    <string name="title">Film title here</string>
+    <string name="details">Details from movie</string>
+    <string name="titlesMovie">Movie name here</string>
+    <string name="year">edition</string>
+    <string name="rating">ratingValue</string>
+
 </resources>
