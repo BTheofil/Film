@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initRecylerView()
+        initRecyclerView()
         addDataSet()
     }
     private fun addDataSet(){
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         movieAdapter.submitList(data)
     }
 
-    private fun initRecylerView(){
+    private fun initRecyclerView(){
         recycler_view.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             movieAdapter = MovieRecyclerAdapter()
