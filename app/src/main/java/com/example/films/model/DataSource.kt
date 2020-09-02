@@ -60,7 +60,7 @@ class DataSource {
                     "Deadpool",
                     2016,
                     80,
-                    "The man life who can not die.",
+                    "The man's life who can not die.",
                     image = R.drawable.deadpool
 
                 )
