@@ -14,11 +14,13 @@
         android:layout_height="wrap_content"
         >
 
+        //the card
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
+            //image from movie
         <ImageView
             android:layout_width="150dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,11 +47,6 @@
             android:id="@+id/container1"
             >
 
-             <LinearLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:orientation="horizontal"
-                 >
 
                  <TextView
                      android:layout_width="wrap_content"
@@ -58,6 +55,13 @@
                      android:text="@string/titlesMovie"
                      ></TextView>
 
+            //the edition and rating same line
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                >
                  <TextView
                      android:id="@+id/movie_year"
                      android:layout_width="wrap_content"
@@ -65,18 +69,17 @@
                      android:layout_marginRight="0dp"
                      android:gravity="right"
                      android:paddingRight="0dp"
-                     android:text="@string/year">
-
-                 </TextView>>
-
-                 </LinearLayout>
+                     android:text="@string/year"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
                 android:id="@+id/movie_rating"
                 android:text="@string/rating"
                 />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -86,7 +89,6 @@
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 />
-
 
 
         </LinearLayout>

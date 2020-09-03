@@ -10,7 +10,7 @@ class DataSource {
 
             list.add(
                 Movie(
-                    "Dolittle!",
+                    "Dolittle",
                     2020,
                     56,
                     "Many animals and Robert.",
