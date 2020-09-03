@@ -6,4 +6,7 @@
     <string name="year">edition</string>
     <string name="rating">ratingValue</string>
 
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 </resources>
