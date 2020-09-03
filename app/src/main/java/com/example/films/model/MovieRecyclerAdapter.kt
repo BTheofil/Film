@@ -9,36 +9,31 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
 import kotlinx.android.synthetic.main.layout_movies_list_item.view.*
 
-class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<Movie> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MovieViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_movies_list_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        MovieViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.layout_movies_list_item, parent, false)
         )
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        when(holder){
-            is MovieViewHolder ->{
-                holder.bind(items.get(position))
-            }
+        when (holder) {
+            is MovieViewHolder -> holder.bind(items[position])
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items
+        .size
 
-    fun submitList(movieList: List<Movie>){
+    fun submitList(movieList: List<Movie>) {
         items = movieList
     }
 
-    class MovieViewHolder constructor(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView){
+    class MovieViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val movieImage = itemView.movie_image
         val movieTitle = itemView.movie_title
@@ -46,8 +41,7 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         val movieRating = itemView.movie_rating
         val movieDetails = itemView.movie_details
 
-        fun bind(movie: Movie){
-
+        fun bind(movie: Movie) {
             movieTitle.setText(movie.title)
             movieYear.setText(movie.year.toString())
             movieRating.setText(movie.rating.toString())

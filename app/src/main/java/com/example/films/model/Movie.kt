@@ -6,4 +6,4 @@ data class Movie(
     var rating: Int,
     var details: String,
     var image: Int
-){}
+)
