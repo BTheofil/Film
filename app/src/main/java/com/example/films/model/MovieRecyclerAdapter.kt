@@ -50,7 +50,7 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
             movieTitle.setText(movie.title)
             movieYear.setText(movie.year.toString())
-            movieRating.setText(movie.rating.toString())
+            movieRating.setText(movie.rateing.toString())
             movieDetails.setText(movie.details)
 
             val requestOption = RequestOptions()
