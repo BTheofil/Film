@@ -12,10 +12,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var movieAdapter: MovieRecyclerAdapter
 
-    //menu need that
+    // menu need that
     lateinit var toggle: ActionBarDrawerToggle
 
-    //movie storage
+    // movie storage
     val data = DataSource.createDataSet()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.Rating -> { data.sortedBy { it.rateing }}
-                R.id.Realise -> { data.sortedBy { it.year }}
+                R.id.Rating -> data.sortedBy { it.rateing }
+                R.id.Realise -> data.sortedBy { it.year }
             }
+
             true
         }
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
 
