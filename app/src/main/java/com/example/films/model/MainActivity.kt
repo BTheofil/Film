@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.Realise -> data.sortedBy { it.year }
             }
 
+            drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
