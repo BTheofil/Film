@@ -42,10 +42,10 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val movieDetails = itemView.movie_details
 
         fun bind(movie: Movie) {
-            movieTitle.setText(movie.title)
-            movieYear.setText(movie.year.toString())
-            movieRating.setText(movie.rateing.toString())
-            movieDetails.setText(movie.details)
+            movieTitle.text = movie.title
+            movieYear.text = movie.year.toString()
+            movieRating.text = movie.rateing.toString()
+            movieDetails.text = movie.details
 
             val requestOption = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)

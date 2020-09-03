@@ -1,11 +1,9 @@
 package com.example.films.model
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Adapter
-import android.widget.LinearLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,8 +12,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var movieAdapter: MovieRecyclerAdapter
 
-    //menu
+    //menu need that
     lateinit var toggle: ActionBarDrawerToggle
+
+    //movie storage
+    val data = DataSource.createDataSet()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +28,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         navView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.Rating -> TODO()
-                R.id.Realise -> TODO()
+            when (it.itemId) {
+                R.id.Rating -> { data.sortedBy { it.rateing }}
+                R.id.Realise -> { data.sortedBy { it.year }}
             }
             true
         }
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addDataSet() {
-        val data = DataSource.createDataSet()
         movieAdapter.submitList(data)
     }
 
