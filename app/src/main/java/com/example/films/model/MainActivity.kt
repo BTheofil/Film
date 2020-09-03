@@ -46,12 +46,12 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addDataSet(){
+    private fun addDataSet() {
         val data = DataSource.createDataSet()
         movieAdapter.submitList(data)
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             val topSpacingItemDecoration = TopSpacingItemDecoration(30)
