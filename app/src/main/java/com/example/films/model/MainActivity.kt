@@ -1,5 +1,6 @@
 package com.example.films.model
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -8,6 +9,7 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.prefs.AbstractPreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     // movie storage
     val data = DataSource.createDataSet()
+
+    //sorting
+    lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.Rating -> data.sortedBy { it.rateing }
-                R.id.Realise -> data.sortedBy { it.year }
+                R.id.Rating -> sortByRating(movieAdapter)
+                R.id.Realise -> sortByRealise(movieAdapter)
             }
 
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -40,6 +45,16 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
         addDataSet()
+    }
+
+    private fun sortByRealise(movieAdapter: MovieRecyclerAdapter) {
+        data.sortWith(compareBy { it.year })
+        movieAdapter.notifyDataSetChanged()
+    }
+
+    private fun sortByRating(movieAdapter: MovieRecyclerAdapter) {
+        data.sortWith(compareBy { it.rateing })
+        movieAdapter.notifyDataSetChanged()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

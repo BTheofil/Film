@@ -20,7 +20,7 @@ object DataSource {
                 Movie(
                     "Solo: A Star Wars story",
                     2018,
-                    69,
+                    70,
                     "This film present Han great adventures.",
                     image = R.drawable.solo
                 )
@@ -38,7 +38,7 @@ object DataSource {
             list.add(
                 Movie(
                     "How to Train Your Dragon 3",
-                    2019,
+                    2017,
                     75,
                     "Animated ",
                     image = R.drawable.how
@@ -48,7 +48,7 @@ object DataSource {
                 Movie(
                     "Pirates of Caribbean",
                     2003,
-                    80,
+                    81,
                     "Many arrr and swords.",
                     image = R.drawable.pirates
 
