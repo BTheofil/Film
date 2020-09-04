@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.FieldPosition
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,18 +53,20 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         addDataSet()
     }
-    private fun ratingSelect(sortSettings: String?, RatingOrRealise: Int) {
-        sortDialog(RatingOrRealise)
-        if (sortSettings == "Ascending"){
-            if (RatingOrRealise == 0) {
+
+    // these fun from sorting system
+    private fun ratingSelect(sortSettings: String?, ratingOrRealise: Int) {
+        sortDialog(ratingOrRealise)
+        if (sortSettings == "Ascending") {
+            if (ratingOrRealise == 0) {
                 sortByRatingAsc(movieAdapter)
-            }else if (RatingOrRealise == 1) {
+            } else if (ratingOrRealise == 1) {
                 sortByRealiseAsc(movieAdapter)
             }
-        }else if (sortSettings == "Descending"){
-            if (RatingOrRealise == 0) {
+        } else if (sortSettings == "Descending") {
+            if (ratingOrRealise == 0) {
                 sortByRatingDes(movieAdapter)
-            }else if (RatingOrRealise == 1) {
+            } else if (ratingOrRealise == 1) {
                 sortByRealiseDes(movieAdapter)
             }
         }
@@ -91,31 +94,31 @@ class MainActivity : AppCompatActivity() {
         movieAdapter.notifyDataSetChanged()
     }
 
-    private fun sortDialog(RatingOrRealise: Int) {
+    private fun sortDialog(ratingOrRealise: Int) {
         val options = arrayOf("Ascending", "Descending")
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sort By")
         builder.setIcon(R.drawable.ic_action_sort_foreground)
 
-        builder.setItems(options) {dialog, which ->
-            if (which == 0){
-                val editor : SharedPreferences.Editor = preferences.edit()
+        builder.setItems(options) { dialog, which ->
+            if (which == 0) {
+                val editor: SharedPreferences.Editor = preferences.edit()
                 editor.putString("Sort", "Ascending")
                 editor.apply()
-                if (RatingOrRealise == 0) {
+                if (ratingOrRealise == 0) {
                     sortByRatingAsc(movieAdapter)
-                }else if (RatingOrRealise == 1) {
+                } else if (ratingOrRealise == 1) {
                     sortByRealiseAsc(movieAdapter)
                 }
                 Toast.makeText(this@MainActivity, "Ascending Order", Toast.LENGTH_LONG).show()
             }
-            if (which == 1){
-                val editor : SharedPreferences.Editor = preferences.edit()
+            if (which == 1) {
+                val editor: SharedPreferences.Editor = preferences.edit()
                 editor.putString("Sort", "Descending")
                 editor.apply()
-                if (RatingOrRealise == 0) {
+                if (ratingOrRealise == 0) {
                     sortByRatingDes(movieAdapter)
-                }else if (RatingOrRealise == 1) {
+                } else if (ratingOrRealise == 1) {
                     sortByRealiseDes(movieAdapter)
                 }
                 Toast.makeText(this@MainActivity, "Descending Order", Toast.LENGTH_LONG).show()
@@ -124,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
+    // top menu bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
