@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         val sortSettings = preferences.getString("Sort", "Ascending")
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.Rating -> ratingSelect(sortSettings)
+                R.id.Rating -> ratingSelect(sortSettings, 0)
 
-                R.id.Realise -> sortByRealise(movieAdapter)
+                R.id.Realise -> ratingSelect(sortSettings, 1)
             }
 
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -52,12 +52,20 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         addDataSet()
     }
-    private fun ratingSelect(sortSettings: String?) {
-        sortDialog()
+    private fun ratingSelect(sortSettings: String?, RatingOrRealise: Int) {
+        sortDialog(RatingOrRealise)
         if (sortSettings == "Ascending"){
-            sortByRatingAsc(movieAdapter)
+            if (RatingOrRealise == 0) {
+                sortByRatingAsc(movieAdapter)
+            }else if (RatingOrRealise == 1) {
+                sortByRealiseAsc(movieAdapter)
+            }
         }else if (sortSettings == "Descending"){
-            sortByRatingDes(movieAdapter)
+            if (RatingOrRealise == 0) {
+                sortByRatingDes(movieAdapter)
+            }else if (RatingOrRealise == 1) {
+                sortByRealiseDes(movieAdapter)
+            }
         }
     }
 
@@ -72,20 +80,18 @@ class MainActivity : AppCompatActivity() {
         movieAdapter.notifyDataSetChanged()
     }
 
-    private fun sortByRealise(movieAdapter: MovieRecyclerAdapter) {
+    private fun sortByRealiseAsc(movieAdapter: MovieRecyclerAdapter) {
         data.sortWith(compareBy { it.year })
         movieAdapter.notifyDataSetChanged()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
+    private fun sortByRealiseDes(movieAdapter: MovieRecyclerAdapter) {
+        data.sortWith(compareBy { it.year })
+        data.reverse()
+        movieAdapter.notifyDataSetChanged()
     }
 
-    private fun sortDialog() {
+    private fun sortDialog(RatingOrRealise: Int) {
         val options = arrayOf("Ascending", "Descending")
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sort By")
@@ -96,18 +102,34 @@ class MainActivity : AppCompatActivity() {
                 val editor : SharedPreferences.Editor = preferences.edit()
                 editor.putString("Sort", "Ascending")
                 editor.apply()
-                sortByRatingAsc(movieAdapter)
+                if (RatingOrRealise == 0) {
+                    sortByRatingAsc(movieAdapter)
+                }else if (RatingOrRealise == 1) {
+                    sortByRealiseAsc(movieAdapter)
+                }
                 Toast.makeText(this@MainActivity, "Ascending Order", Toast.LENGTH_LONG).show()
             }
             if (which == 1){
                 val editor : SharedPreferences.Editor = preferences.edit()
                 editor.putString("Sort", "Descending")
                 editor.apply()
-                sortByRatingDes(movieAdapter)
+                if (RatingOrRealise == 0) {
+                    sortByRatingDes(movieAdapter)
+                }else if (RatingOrRealise == 1) {
+                    sortByRealiseDes(movieAdapter)
+                }
                 Toast.makeText(this@MainActivity, "Descending Order", Toast.LENGTH_LONG).show()
             }
         }
         builder.create().show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun addDataSet() {
