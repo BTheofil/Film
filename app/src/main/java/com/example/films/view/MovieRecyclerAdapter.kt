@@ -1,4 +1,4 @@
-package com.example.films.model
+package com.example.films.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
+import com.example.films.model.Movie
 import kotlinx.android.synthetic.main.layout_movies_list_item.view.*
 
 class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -21,19 +22,17 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is MovieViewHolder -> holder.bind(items[position])
-        }
+        MovieViewHolder(holder.itemView).bind(items[position])
     }
 
-    override fun getItemCount() = items
-        .size
+    override fun getItemCount() = items.size
 
     fun submitList(movieList: List<Movie>) {
         items = movieList
+        notifyDataSetChanged()
     }
 
-    class MovieViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val movieImage = itemView.movie_image
         val movieTitle = itemView.movie_title

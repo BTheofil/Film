@@ -1,4 +1,4 @@
-package com.example.films.model
+package com.example.films.view
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
+import com.example.films.model.DataSource
+import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.FieldPosition
 
@@ -143,7 +145,8 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            val topSpacingItemDecoration = TopSpacingItemDecoration(30)
+            val topSpacingItemDecoration =
+                TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingItemDecoration)
             movieAdapter = MovieRecyclerAdapter()
             adapter = movieAdapter

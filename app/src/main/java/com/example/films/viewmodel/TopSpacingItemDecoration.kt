@@ -1,4 +1,4 @@
-package com.example.films.model
+package com.example.films.viewmodel
 
 import android.graphics.Rect
 import android.view.View
