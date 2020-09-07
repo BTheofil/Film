@@ -14,7 +14,6 @@ import com.example.films.R
 import com.example.films.model.DataSource
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.FieldPosition
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     // sorting
     lateinit var preferences: SharedPreferences
+    private var ascending : String = "Ascending"
+    private var descending : String = "Descending"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         // sorting system wizard O_o
         preferences = getSharedPreferences("My_Pref", Context.MODE_PRIVATE)
-        val sortSettings = preferences.getString("Sort", "Ascending")
+        val sortSettings = preferences.getString("Sort", ascending)
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.Rating -> ratingSelect(sortSettings, 0)
@@ -59,13 +60,13 @@ class MainActivity : AppCompatActivity() {
     // these fun from sorting system
     private fun ratingSelect(sortSettings: String?, ratingOrRealise: Int) {
         sortDialog(ratingOrRealise)
-        if (sortSettings == "Ascending") {
+        if (sortSettings == ascending) {
             if (ratingOrRealise == 0) {
                 sortByRatingAsc(movieAdapter)
             } else if (ratingOrRealise == 1) {
                 sortByRealiseAsc(movieAdapter)
             }
-        } else if (sortSettings == "Descending") {
+        } else if (sortSettings == descending) {
             if (ratingOrRealise == 0) {
                 sortByRatingDes(movieAdapter)
             } else if (ratingOrRealise == 1) {
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sortDialog(ratingOrRealise: Int) {
-        val options = arrayOf("Ascending", "Descending")
+        val options = arrayOf(ascending, descending)
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sort By")
         builder.setIcon(R.drawable.ic_action_sort_foreground)
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         builder.setItems(options) { dialog, which ->
             if (which == 0) {
                 val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putString("Sort", "Ascending")
+                editor.putString("Sort", ascending)
                 editor.apply()
                 if (ratingOrRealise == 0) {
                     sortByRatingAsc(movieAdapter)
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             }
             if (which == 1) {
                 val editor: SharedPreferences.Editor = preferences.edit()
-                editor.putString("Sort", "Descending")
+                editor.putString("Sort", descending)
                 editor.apply()
                 if (ratingOrRealise == 0) {
                     sortByRatingDes(movieAdapter)
@@ -152,4 +153,5 @@ class MainActivity : AppCompatActivity() {
             adapter = movieAdapter
         }
     }
+
 }
