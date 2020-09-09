@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.DataSource
 import com.example.films.model.Movie
-import com.example.films.view.Details.Companion.EXTRA_ITEM
+import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -170,12 +170,12 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         //data.get(position).details
 
         val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra("MOVIENAME", item.title)
+        /*intent.putExtra("MOVIENAME", item.title)
         intent.putExtra("MOVIEIMAGE", item.image)
         intent.putExtra("MOVIEDETAILS", item.details)
         intent.putExtra("MOVIEYEAR", item.year)
-        intent.putExtra("MOVIERATE", item.rateing)
-        //intent.putExtra(EXTRA_ITEM, item)
+        intent.putExtra("MOVIERATE", item.rateing)*/
+        intent.putExtra(SELECT_MOVIE, item)
         startActivity(intent)
     }
 
