@@ -3,8 +3,6 @@ package com.example.films.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -48,11 +46,11 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
 
     class MovieViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val movieImage = itemView.movie_image
-        val movieTitle = itemView.movie_title
-        val movieYear = itemView.movie_year
-        val movieRating = itemView.movie_rating
-        val movieDetails = itemView.movie_details
+        val movieImage = itemView.movie_imageD
+        val movieTitle = itemView.movie_titleD
+        val movieYear = itemView.movie_yearD
+        val movieRating = itemView.movie_ratingD
+        val movieDetails = itemView.movie_detailsD
 
         fun bind(movie: Movie, action: OnMovieItemClickListener) {
             movieTitle.text = movie.title

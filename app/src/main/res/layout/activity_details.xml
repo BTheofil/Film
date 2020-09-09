@@ -7,7 +7,7 @@
     tools:context=".view.DetailsActivity">
 
     <ImageView
-        android:id="@+id/movie_image"
+        android:id="@+id/movie_imageD"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginStart="8dp"
@@ -19,21 +19,21 @@
         app:layout_constraintVertical_bias="0.062" />
 
     <TextView
-        android:id="@+id/movie_title"
+        android:id="@+id/movie_titleD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="center_horizontal"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/movie_details"
+        app:layout_constraintBottom_toTopOf="@+id/movie_detailsD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_image"
+        app:layout_constraintTop_toBottomOf="@+id/movie_imageD"
         android:text="Movie title here"/>
 
     <TextView
-        android:id="@+id/movie_details"
+        android:id="@+id/movie_detailsD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -44,32 +44,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_titleD" />
 
     <TextView
-        android:id="@+id/movie_year"
+        android:id="@+id/movie_yearD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="14dp"
         android:text="Move year"
-        app:layout_constraintBottom_toTopOf="@+id/movie_details"
+        app:layout_constraintBottom_toTopOf="@+id/movie_detailsD"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/movie_titleD"
         app:layout_constraintVertical_bias="0.24" />
 
     <TextView
-        android:id="@+id/movie_rating"
+        android:id="@+id/movie_ratingD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="14dp"
         android:text="Movie rate"
-        app:layout_constraintBottom_toTopOf="@+id/movie_details"
+        app:layout_constraintBottom_toTopOf="@+id/movie_detailsD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/movie_titleD"
         app:layout_constraintVertical_bias="0.545" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
