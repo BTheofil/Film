@@ -158,6 +158,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
 
     }
 
+    // clickable items
     override fun onItemClick(item: Movie, position: Int) {
 
         val intent = Intent(this, DetailsActivity::class.java)
