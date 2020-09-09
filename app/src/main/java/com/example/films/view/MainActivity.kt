@@ -12,10 +12,11 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.DataSource
+import com.example.films.model.Movie
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickListener {
 
     private lateinit var movieAdapter: MovieRecyclerAdapter
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
 
     // movie storage
-    val data = DataSource.createDataSet()
+    private val data = DataSource.createDataSet()
 
     // sorting
     lateinit var preferences: SharedPreferences
@@ -149,9 +150,14 @@ class MainActivity : AppCompatActivity() {
             val topSpacingItemDecoration =
                 TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingItemDecoration)
-            movieAdapter = MovieRecyclerAdapter()
+            movieAdapter = MovieRecyclerAdapter(this@MainActivity)
             adapter = movieAdapter
         }
+
+    }
+
+    override fun onItemClick(item: Movie, position: Int) {
+        Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
     }
 
 }
