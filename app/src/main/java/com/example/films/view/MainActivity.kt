@@ -159,22 +159,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     }
 
     override fun onItemClick(item: Movie, position: Int) {
-        //Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
-
-        //val selected = data.get(position)
-        //var getMovieTitle: String = selected.title
-        //var getMovieImage: Int = selected.image
-        //var getMovieDeatails: String = selected.details
-        //var getMovieYear: Int = selected.year
-        //var getMovieRate: Int = selected.rateing
-        //data.get(position).details
 
         val intent = Intent(this, DetailsActivity::class.java)
-        /*intent.putExtra("MOVIENAME", item.title)
-        intent.putExtra("MOVIEIMAGE", item.image)
-        intent.putExtra("MOVIEDETAILS", item.details)
-        intent.putExtra("MOVIEYEAR", item.year)
-        intent.putExtra("MOVIERATE", item.rateing)*/
         intent.putExtra(SELECT_MOVIE, item)
         startActivity(intent)
     }

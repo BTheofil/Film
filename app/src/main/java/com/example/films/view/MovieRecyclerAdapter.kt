@@ -25,15 +25,6 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         MovieViewHolder(holder.itemView).bind(items[position], clickListener)
-       // holder.itemView.setOnClickListener{
-//
-  //          var getTitle: String = items.get(position).title
-    //        val intent = Intent(context, Details::class.java)
-      //      intent.putExtra("iTitle", getTitle)
-//
-  //          context.startActivity(intent)
-    //    }
-
     }
 
     override fun getItemCount() = items.size
@@ -42,7 +33,6 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
         items = movieList
         notifyDataSetChanged()
     }
-
 
     class MovieViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -76,13 +66,4 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
     interface OnMovieItemClickListener {
         fun onItemClick(item: Movie, position: Int)
     }
-
-   /* class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-        val itemTitle: TextView = itemView.findViewById(R.id.movie_title)
-        val itemImage: ImageView = itemView.findViewById(R.id.movie_image)
-        val itemYear: TextView = itemView.findViewById(R.id.movie_year)
-        val itemRate: TextView = itemView.findViewById(R.id.movie_rating)
-        val itemDescription: TextView = itemView.findViewById(R.id.movie_details)
-    }*/
 }

@@ -16,14 +16,6 @@ class DetailsActivity : AppCompatActivity() {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-
-        /*var intent = intent
-        movie_titleD.text = intent.getStringExtra("MOVIENAME")
-        movie_imageD.setImageResource(intent.getIntExtra("MOVIEIMAGE", 0))
-        movie_detailsD.text = intent.getStringExtra("MOVIEDETAILS")
-        movie_ratingD.text = intent.getStringExtra("MOVIERATE")
-        movie_yearD.text = intent.getStringExtra("MOVIEYEAR")*/
-
         val item = intent.getSerializableExtra(SELECT_MOVIE) as Movie
         movie_titleD.text = item.title
         movie_detailsD.text = item.details
