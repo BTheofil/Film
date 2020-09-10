@@ -22,6 +22,8 @@ import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
 import com.example.films.viewmodel.MovieDataViewModel
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickListener {
 
@@ -30,18 +32,13 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     // menu need that
     lateinit var toggle: ActionBarDrawerToggle
 
-    // movie storage
-    private val data = DataSource.createDataSet()
-
     // sorting
     lateinit var preferences: SharedPreferences
     private var ascending: String = "Ascending"
     private var descending: String = "Descending"
 
+    // live data
     private lateinit var movieViewModel: MovieDataViewModel
-
-    // search
-    private val searchData: MutableList<Movie> = data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +68,22 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         initRecyclerView()
     }
 
+    private fun initRecyclerView() {
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            val topSpacingItemDecoration =
+                TopSpacingItemDecoration(30)
+            addItemDecoration(topSpacingItemDecoration)
+            movieAdapter = MovieRecyclerAdapter(this@MainActivity)
+            adapter = movieAdapter
+        }
+        // subscribe
+        movieViewModel.movieDataLiveData.observe(this,
+            Observer<List<Movie>> { movies ->
+                movieAdapter.submitList(movies)
+            })
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         val searchItem = menu.findItem(R.id.search)
@@ -83,25 +96,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
 
                 override fun onQueryTextChange(text: String?): Boolean {
 
-                    if (text!!.isEmpty()) {
-                        searchData.clear()
-                        val search = text.toLowerCase()
-                        data.forEach {
-                            if (it.title.toLowerCase().contains(search)) {
-                                searchData.add(it)
-                            }
-                        }
-                    } else {
-                        searchData.clear()
-                        searchData.addAll(data)
-                    }
-
-
+                    movieViewModel.filter(text)
                     return true
                 }
             })
         }
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -110,39 +109,17 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         sortDialog(ratingOrRealise)
         if (sortSettings == ascending) {
             if (ratingOrRealise == 0) {
-                sortByRatingAsc(movieAdapter)
+                movieViewModel.sortByRatingAsc()
             } else if (ratingOrRealise == 1) {
-                sortByRealiseAsc(movieAdapter)
+                movieViewModel.sortByRatingDes()
             }
         } else if (sortSettings == descending) {
             if (ratingOrRealise == 0) {
-                sortByRatingDes(movieAdapter)
+                movieViewModel.sortByRealiseAsc()
             } else if (ratingOrRealise == 1) {
-                sortByRealiseDes(movieAdapter)
+                movieViewModel.sortByRealiseDes()
             }
         }
-    }
-
-    private fun sortByRatingAsc(movieAdapter: MovieRecyclerAdapter) {
-        data.sortWith(compareBy { it.rating })
-        movieAdapter.notifyDataSetChanged()
-    }
-
-    private fun sortByRatingDes(movieAdapter: MovieRecyclerAdapter) {
-        data.sortWith(compareBy { it.rating })
-        data.reverse()
-        movieAdapter.notifyDataSetChanged()
-    }
-
-    private fun sortByRealiseAsc(movieAdapter: MovieRecyclerAdapter) {
-        data.sortWith(compareBy { it.year })
-        movieAdapter.notifyDataSetChanged()
-    }
-
-    private fun sortByRealiseDes(movieAdapter: MovieRecyclerAdapter) {
-        data.sortWith(compareBy { it.year })
-        data.reverse()
-        movieAdapter.notifyDataSetChanged()
     }
 
     private fun sortDialog(ratingOrRealise: Int) {
@@ -157,9 +134,9 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
                 editor.putString("Sort", ascending)
                 editor.apply()
                 if (ratingOrRealise == 0) {
-                    sortByRatingAsc(movieAdapter)
+                    movieViewModel.sortByRatingAsc()
                 } else if (ratingOrRealise == 1) {
-                    sortByRealiseAsc(movieAdapter)
+                    movieViewModel.sortByRealiseAsc()
                 }
                 Toast.makeText(this@MainActivity, "Ascending Order", Toast.LENGTH_LONG).show()
             }
@@ -168,9 +145,9 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
                 editor.putString("Sort", descending)
                 editor.apply()
                 if (ratingOrRealise == 0) {
-                    sortByRatingDes(movieAdapter)
+                    movieViewModel.sortByRatingDes()
                 } else if (ratingOrRealise == 1) {
-                    sortByRealiseDes(movieAdapter)
+                    movieViewModel.sortByRealiseDes()
                 }
                 Toast.makeText(this@MainActivity, "Descending Order", Toast.LENGTH_LONG).show()
             }
@@ -187,22 +164,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initRecyclerView() {
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            val topSpacingItemDecoration =
-                TopSpacingItemDecoration(30)
-            addItemDecoration(topSpacingItemDecoration)
-            movieAdapter = MovieRecyclerAdapter(this@MainActivity)
-            adapter = movieAdapter
-        }
-        movieViewModel.movieDataLiveData.observe(this,
-            Observer<List<Movie>> { movies -> movieAdapter.submitList(movies) })
-    }
-
     // clickable items
     override fun onItemClick(item: Movie, position: Int) {
-
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra(SELECT_MOVIE, item)
         startActivity(intent)
