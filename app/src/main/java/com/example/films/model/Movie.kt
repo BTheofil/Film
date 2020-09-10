@@ -13,12 +13,10 @@ data class Movie(
 
 enum class Category {
 
-    HORROR,
     SCI_FI,
     ANIMATED,
     COMEDY,
     FEMINIST,
     HUMOR,
     FAMILY
-
 }

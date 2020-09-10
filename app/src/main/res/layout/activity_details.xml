@@ -75,4 +75,14 @@
         app:layout_constraintTop_toBottomOf="@+id/movie_titleD"
         app:layout_constraintVertical_bias="0.545" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryD"
+        android:orientation="horizontal"
+        android:layout_width="149dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_imageD"
+        app:layout_constraintStart_toStartOf="@+id/movie_imageD" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
