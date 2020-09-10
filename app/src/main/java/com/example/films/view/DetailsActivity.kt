@@ -19,7 +19,7 @@ class DetailsActivity : AppCompatActivity() {
         val item = intent.getSerializableExtra(SELECT_MOVIE) as Movie
         movie_titleD.text = item.title
         movie_detailsD.text = item.details
-        movie_ratingD.text = item.rateing.toString()
+        movie_ratingD.text = item.rating.toString()
         movie_yearD.text = item.year.toString()
         movie_imageD.setImageResource(item.image)
     }

@@ -6,16 +6,20 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.DataSource
 import com.example.films.model.Movie
 import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
+import com.example.films.viewmodel.MovieDataViewModel
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,12 +35,19 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
 
     // sorting
     lateinit var preferences: SharedPreferences
-    private var ascending : String = "Ascending"
-    private var descending : String = "Descending"
+    private var ascending: String = "Ascending"
+    private var descending: String = "Descending"
+
+    private lateinit var movieViewModel: MovieDataViewModel
+
+    // search
+    private val searchData: MutableList<Movie> = data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        movieViewModel = ViewModelProvider(this).get(MovieDataViewModel::class.java)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -58,10 +69,39 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         }
 
         initRecyclerView()
-        addDataSet()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        val searchItem = menu.findItem(R.id.search)
+        if (searchItem != null) {
+            val searchView = searchItem.actionView as SearchView
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(text: String?): Boolean {
+
+                    if (text!!.isEmpty()) {
+                        searchData.clear()
+                        val search = text.toLowerCase()
+                        data.forEach {
+                            if (it.title.toLowerCase().contains(search)) {
+                                searchData.add(it)
+                            }
+                        }
+                    } else {
+                        searchData.clear()
+                        searchData.addAll(data)
+                    }
+
+
+                    return true
+                }
+            })
+        }
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -84,12 +124,12 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     }
 
     private fun sortByRatingAsc(movieAdapter: MovieRecyclerAdapter) {
-        data.sortWith(compareBy { it.rateing })
+        data.sortWith(compareBy { it.rating })
         movieAdapter.notifyDataSetChanged()
     }
 
     private fun sortByRatingDes(movieAdapter: MovieRecyclerAdapter) {
-        data.sortWith(compareBy { it.rateing })
+        data.sortWith(compareBy { it.rating })
         data.reverse()
         movieAdapter.notifyDataSetChanged()
     }
@@ -111,7 +151,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         builder.setTitle("Sort By")
         builder.setIcon(R.drawable.ic_action_sort_foreground)
 
-        builder.setItems(options) { dialog, which ->
+        builder.setItems(options) { _, which ->
             if (which == 0) {
                 val editor: SharedPreferences.Editor = preferences.edit()
                 editor.putString("Sort", ascending)
@@ -147,10 +187,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addDataSet() {
-        movieAdapter.submitList(data)
-    }
-
     private fun initRecyclerView() {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -160,7 +196,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
             movieAdapter = MovieRecyclerAdapter(this@MainActivity)
             adapter = movieAdapter
         }
-
+        movieViewModel.movieDataLiveData.observe(this,
+            Observer<List<Movie>> { movies -> movieAdapter.submitList(movies) })
     }
 
     // clickable items
@@ -170,5 +207,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         intent.putExtra(SELECT_MOVIE, item)
         startActivity(intent)
     }
-
 }
+
+

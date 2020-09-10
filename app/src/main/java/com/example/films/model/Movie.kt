@@ -5,7 +5,7 @@ import java.io.Serializable
 data class Movie(
     var title: String,
     var year: Int,
-    var rateing: Int,
+    var rating: Int,
     var details: String,
     var image: Int
 ) : Serializable
