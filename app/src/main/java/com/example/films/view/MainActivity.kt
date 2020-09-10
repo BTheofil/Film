@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -58,6 +59,10 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
 
         initRecyclerView()
         addDataSet()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
     }
 
     // these fun from sorting system
