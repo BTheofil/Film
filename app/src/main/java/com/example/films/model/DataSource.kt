@@ -13,7 +13,8 @@ object DataSource {
                     2020,
                     56,
                     "Many animals and Robert.",
-                    image = R.drawable.dolittle
+                    image = R.drawable.dolittle,
+                    categoryArrayList = arrayListOf(Category.HUMOR, Category.COMEDY)
                 )
             )
             list.add(
@@ -22,7 +23,8 @@ object DataSource {
                     2018,
                     70,
                     "This film present Han great adventures.",
-                    image = R.drawable.solo
+                    image = R.drawable.solo,
+                    categoryArrayList = arrayListOf(Category.FAMILY, Category.FAMILY)
                 )
             )
 
@@ -32,7 +34,9 @@ object DataSource {
                     2019,
                     69,
                     "Every feminist favourite film.",
-                    image = R.drawable.captain
+                    image = R.drawable.captain,
+                    categoryArrayList = arrayListOf(Category.FEMINIST, Category.COMEDY)
+
                 )
             )
             list.add(
@@ -41,7 +45,8 @@ object DataSource {
                     2017,
                     75,
                     "Animated ",
-                    image = R.drawable.how
+                    image = R.drawable.how,
+                    categoryArrayList = arrayListOf(Category.ANIMATED, Category.SCI_FI)
                 )
             )
             list.add(
@@ -50,8 +55,8 @@ object DataSource {
                     2003,
                     81,
                     "Many arrr and swords.",
-                    image = R.drawable.pirates
-
+                    image = R.drawable.pirates,
+                    categoryArrayList = arrayListOf(Category.COMEDY, Category.FAMILY)
                 )
             )
             list.add(
@@ -60,8 +65,8 @@ object DataSource {
                     2016,
                     80,
                     "The man's life who can not die.",
-                    image = R.drawable.deadpool
-
+                    image = R.drawable.deadpool,
+                    categoryArrayList = arrayListOf(Category.HUMOR, Category.FAMILY)
                 )
             )
             return list

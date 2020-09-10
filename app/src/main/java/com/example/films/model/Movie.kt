@@ -7,5 +7,18 @@ data class Movie(
     var year: Int,
     var rating: Int,
     var details: String,
-    var image: Int
+    var image: Int,
+    var categoryArrayList: ArrayList<Category>
 ) : Serializable
+
+enum class Category {
+
+    HORROR,
+    SCI_FI,
+    ANIMATED,
+    COMEDY,
+    FEMINIST,
+    HUMOR,
+    FAMILY
+
+}

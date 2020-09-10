@@ -6,24 +6,21 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
-import com.example.films.model.DataSource
 import com.example.films.model.Movie
 import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
 import com.example.films.viewmodel.MovieDataViewModel
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickListener {
 
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     lateinit var toggle: ActionBarDrawerToggle
 
     // sorting
-    lateinit var preferences: SharedPreferences
+    private lateinit var preferences: SharedPreferences
     private var ascending: String = "Ascending"
     private var descending: String = "Descending"
 
@@ -53,12 +50,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
 
         // sorting system wizard O_o
         preferences = getSharedPreferences("My_Pref", Context.MODE_PRIVATE)
-        val sortSettings = preferences.getString("Sort", ascending)
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.Rating -> sortDialog(sortSettings, 0)
+                R.id.Rating -> sortDialog(0)
 
-                R.id.Realise -> sortDialog(sortSettings, 1)
+                R.id.Realise -> sortDialog(1)
             }
 
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -90,15 +86,17 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         val searchItem = menu.findItem(R.id.search)
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
+                    searchItem.collapseActionView()
                     return true
                 }
 
                 override fun onQueryTextChange(text: String?): Boolean {
 
                     movieViewModel.filter(text)
-                    return true
+                    return false
                 }
             })
         }
@@ -106,7 +104,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     }
 
     // sorting system
-    private fun sortDialog(sortSettings: String?, ratingOrRealise: Int) {
+    private fun sortDialog(ratingOrRealise: Int) {
         val options = arrayOf(ascending, descending)
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sort By")
