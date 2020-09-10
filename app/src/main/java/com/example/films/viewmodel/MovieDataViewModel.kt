@@ -44,7 +44,7 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
         Executors.newSingleThreadExecutor().execute {
             val movies: MutableList<Movie> = movieDataLiveData.value!!
             movies.sortWith(compareBy { it.rating })
-            movieDataLiveData.value = movies
+            movieDataLiveData.postValue(movies)
         }
     }
 
@@ -54,15 +54,15 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             val movies: MutableList<Movie> = movieDataLiveData.value!!
             movies.sortWith(compareBy { it.rating })
             movies.reverse()
-            movieDataLiveData.value = movies
+            movieDataLiveData.postValue(movies)
         }
     }
 
     fun sortByRealiseAsc() {
         Executors.newSingleThreadExecutor().execute {
             val movies: MutableList<Movie> = movieDataLiveData.value!!
-            movies.sortWith(compareBy { it.rating })
-            movieDataLiveData.value = movies   //setter
+            movies.sortWith(compareBy { it.year })
+            movieDataLiveData.postValue(movies)   //setter
         }
     }
 
@@ -71,7 +71,7 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             val movies: MutableList<Movie> = movieDataLiveData.value!!
             movies.sortWith(compareBy { it.year })
             movies.reverse()
-            movieDataLiveData.value = movies
+            movieDataLiveData.postValue(movies)
         }
     }
 }

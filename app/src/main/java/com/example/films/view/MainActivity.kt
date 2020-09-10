@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     private var ascending: String = "Ascending"
     private var descending: String = "Descending"
 
-    // live data
+    // live data >:(
     private lateinit var movieViewModel: MovieDataViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         val sortSettings = preferences.getString("Sort", ascending)
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.Rating -> ratingSelect(sortSettings, 0)
+                R.id.Rating -> sortDialog(sortSettings, 0)
 
-                R.id.Realise -> ratingSelect(sortSettings, 1)
+                R.id.Realise -> sortDialog(sortSettings, 1)
             }
 
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
             })
     }
 
+    // search
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         val searchItem = menu.findItem(R.id.search)
@@ -104,25 +105,8 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         return super.onCreateOptionsMenu(menu)
     }
 
-    // these fun from sorting system
-    private fun ratingSelect(sortSettings: String?, ratingOrRealise: Int) {
-        sortDialog(ratingOrRealise)
-        if (sortSettings == ascending) {
-            if (ratingOrRealise == 0) {
-                movieViewModel.sortByRatingAsc()
-            } else if (ratingOrRealise == 1) {
-                movieViewModel.sortByRatingDes()
-            }
-        } else if (sortSettings == descending) {
-            if (ratingOrRealise == 0) {
-                movieViewModel.sortByRealiseAsc()
-            } else if (ratingOrRealise == 1) {
-                movieViewModel.sortByRealiseDes()
-            }
-        }
-    }
-
-    private fun sortDialog(ratingOrRealise: Int) {
+    // sorting system
+    private fun sortDialog(sortSettings: String?, ratingOrRealise: Int) {
         val options = arrayOf(ascending, descending)
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Sort By")
