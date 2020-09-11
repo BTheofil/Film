@@ -9,4 +9,10 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
+    <item
+        android:id="@+id/darkButton"
+        android:icon="@drawable/ic_action_night"
+        android:title="Dark"
+        app:showAsAction="always"/>
+
 </menu>

@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar
 import com.example.films.R
 import com.example.films.model.Movie
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.activity_details_category.*
 
 class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,7 @@ class DetailsActivity : AppCompatActivity() {
         movie_ratingD.text = item.rating.toString()
         movie_yearD.text = item.year.toString()
         movie_imageD.setImageResource(item.image)
+        //topic.text = item.categoryArrayList[0]
     }
     companion object{
         const val SELECT_MOVIE = "selectMovie"
