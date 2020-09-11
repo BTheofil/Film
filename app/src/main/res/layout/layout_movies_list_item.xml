@@ -14,6 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
             android:orientation="horizontal">
 
             <ImageView
@@ -46,44 +47,49 @@
                     android:id="@+id/movie_title"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/titlesMovie" />
+                    android:fontFamily="@font/raleway_semibold"
+                    android:text="@string/titlesMovie"
+                    android:textColor="@color/mainBackground"/>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/movie_year"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="0dp"
-                            android:gravity="right"
-                            android:paddingRight="0dp"
-                            android:text="@string/year" />
-
-                        <TextView
-                            android:id="@+id/movie_rating"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical|end"
-                            android:text="@string/rating" />
-
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/movie_details"
+                        android:id="@+id/movie_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="0dp"
+                        android:gravity="right"
+                        android:paddingRight="0dp"
+                        android:text="@string/year"
+                        android:textColor="@color/mainBackground" />
+
+                    <TextView
+                        android:id="@+id/movie_rating"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/details"
-                        android:textSize="15sp" />
+                        android:gravity="center_vertical|end"
+                        android:text="@string/rating"
+                        android:textColor="@color/mainBackground" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/movie_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/details"
+                    android:textColor="@color/mainBackground"
+                    android:textSize="15sp" />
+
             </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

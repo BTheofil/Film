@@ -2,7 +2,9 @@ package com.example.films.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.films.R
 import com.example.films.model.Movie
 import kotlinx.android.synthetic.main.activity_details.*
@@ -25,6 +27,12 @@ class DetailsActivity : AppCompatActivity() {
         movie_imageD.setImageResource(item.image)
         //topic.text = item.categoryArrayList[0]
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        return super.onOptionsItemSelected(item)
+    }
+
     companion object{
         const val SELECT_MOVIE = "selectMovie"
     }

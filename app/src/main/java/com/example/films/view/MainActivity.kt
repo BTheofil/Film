@@ -1,11 +1,15 @@
 package com.example.films.view
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -38,7 +42,20 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     // live data >:(
     private lateinit var movieViewModel: MovieDataViewModel
 
+//    private var eyp: ClipData.Item? = null
+//    internal lateinit var sharedPref: SharedPref
+
+//    private val appSettingsPrefs: SharedPreferences = getSharedPreferences("AppSettingsPrefs", 0)
+//    private val sharedPrefsEdit: SharedPreferences.Editor = appSettingsPrefs.edit()
+//    private val isNightModeOn: Boolean = appSettingsPrefs.getBoolean("NightMode", false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
+//        sharedPref = SharedPref(this)
+//        if (sharedPref.loadNightModeState() == true) {
+//            setTheme(R.style.DarkTheme)
+//        } else {
+//            setTheme(R.style.AppTheme)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -63,6 +80,27 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         }
 
         initRecyclerView()
+
+//        eyp = findViewById<View>(R.id.darkButton) as ClipData.Item?
+//        if (sharedPref.loadNightModeState() == true) {
+//            eyp!!.isChecked = true
+//        }
+//
+//        eyp!!.setOnCheckedChangeListener {, isChecked ->
+//            if (isChecked) {
+//                sharedPref.setNightModeState(true)
+//                restartApp()
+//            } else {
+//                sharedPref.setNightModeState(false)
+//                restartApp()
+//            }
+//        }
+//        }
+//        if (isNightModeOn) {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//        } else {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        }
     }
 
     private fun initRecyclerView() {
@@ -84,6 +122,12 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     // search
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+
+//       if (check(R.id.darkButton)) {
+////            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+////            return true
+////        }
+
         val searchItem = menu.findItem(R.id.search)
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
@@ -143,7 +187,20 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+//        if (item.itemId == R.id.darkButton) {
+//
+//            if (isNightModeOn) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                sharedPrefsEdit.putBoolean("NightMode", false)
+//                sharedPrefsEdit.apply()
+//            } else {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                sharedPrefsEdit.putBoolean("NightMode", true)
+//                sharedPrefsEdit.apply()
+//            }
+//        }
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         return super.onOptionsItemSelected(item)
     }
 
@@ -152,6 +209,12 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra(SELECT_MOVIE, item)
         startActivity(intent)
+    }
+
+    fun restartApp() {
+        val i = Intent(applicationContext, MainActivity::class.java)
+        startActivity(i)
+        finish()
     }
 }
 
