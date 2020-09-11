@@ -211,11 +211,11 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         startActivity(intent)
     }
 
-    fun restartApp() {
-        val i = Intent(applicationContext, MainActivity::class.java)
-        startActivity(i)
-        finish()
-    }
+//    fun restartApp() {
+//        val i = Intent(applicationContext, MainActivity::class.java)
+//        startActivity(i)
+//        finish()
+//    }
 }
 
 
