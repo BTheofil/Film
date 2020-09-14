@@ -11,7 +11,7 @@ data class Movie(
     var categoryArrayList: ArrayList<Category>
 ) : Serializable
 
-enum class Category {
+enum class Category{
 
     SCI_FI,
     ANIMATED,

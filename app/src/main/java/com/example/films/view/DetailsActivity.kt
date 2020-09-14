@@ -41,13 +41,14 @@ class DetailsActivity : AppCompatActivity() {
         movie_ratingD.text = item.rating.toString()
         movie_yearD.text = item.year.toString()
         movie_imageD.setImageResource(item.image)
-        //topic.text = item.categoryArrayList.toString()
 
-        initRecyclerView()
+        initRecyclerView(item.categoryArrayList)
     }
-    private fun initRecyclerView() {
+    private fun initRecyclerView(categories :List<Category>) {
         categoryD.apply {
+            layoutManager = LinearLayoutManager(this@DetailsActivity, LinearLayoutManager.HORIZONTAL, false)
             categoryAdapter = CategoryRecyclerAdapter()
+            categoryAdapter.setData(categories)
             adapter = categoryAdapter
         }
 //        movieViewModel.movieDataLiveData.observe(this,

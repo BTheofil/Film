@@ -10,5 +10,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="menu_searchView">menu_searchview</string>
+    <string name="sampleDes">description</string>
 
 </resources>
