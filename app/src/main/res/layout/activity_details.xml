@@ -18,16 +18,33 @@
 
     <TextView
         android:id="@+id/movie_titleD"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="169dp"
+        android:layout_height="156dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:fontFamily="@font/raleway_semibold"
         android:text="Movie title here"
         android:textColor="@color/mainBackground"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_imageD"
         app:layout_constraintEnd_toEndOf="@+id/movie_imageD"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/movie_imageD"
+        app:layout_constraintTop_toTopOf="@+id/movie_imageD"
+        app:layout_constraintVertical_bias="0.834" />
+
+    <TextView
+        android:id="@+id/movie_yearD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="284dp"
+        android:text="Move year"
+        android:textColor="@color/mainBackground"
+        app:layout_constraintEnd_toEndOf="@+id/movie_imageD"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/movie_titleD"
         app:layout_constraintTop_toTopOf="@+id/movie_imageD" />
 
     <ScrollView
@@ -47,41 +64,31 @@
  />
     </ScrollView>
 
-<!--    <TextView-->
-<!--        android:id="@+id/movie_yearD"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginLeft="16dp"-->
-<!--        android:layout_marginBottom="14dp"-->
-<!--        android:text="Move year"-->
-<!--        android:textColor="@color/mainBackground"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/movie_detailsD"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/movie_titleD"-->
-<!--        app:layout_constraintVertical_bias="0.24" />-->
+    <TextView
+        android:id="@+id/movie_ratingD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/movie_rate"
+        android:textColor="@color/mainBackground"
+        app:drawableLeftCompat="@drawable/ic_baseline_star_24"
+        app:layout_constraintStart_toEndOf="@+id/movie_titleD"
+        app:layout_constraintTop_toBottomOf="@+id/movie_yearD"
+        tools:ignore="MissingConstraints" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/movie_ratingD"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:drawableLeft="@drawable/ic_baseline_star_24"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:layout_marginBottom="14dp"-->
-<!--        android:text="Movie rate"-->
-<!--        android:textColor="@color/mainBackground"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/categoryD"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="16dp"-->
-<!--        android:clipToPadding="false"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="MissingConstraints"-->
-<!--        tools:layout_editor_absoluteX="16dp"-->
-<!--        tools:listitem="@layout/activity_details_category" />-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryD"
+        android:layout_width="306dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_imageD"
+        app:layout_constraintEnd_toEndOf="@+id/movie_imageD"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/movie_imageD"
+        app:layout_constraintTop_toBottomOf="@+id/movie_titleD"
+        tools:listitem="@layout/activity_details_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
