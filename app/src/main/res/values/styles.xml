@@ -3,15 +3,22 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">#ffffff</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background</item>
+<!--        <item name="textColor">@color/textColor</item>-->
+<!--        <item name="cardColor">@color/cardColor</item>-->
     </style>
 
-    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#212121</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+<!--    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="colorPrimary">#212121</item>-->
+<!--        <item name="colorPrimaryDark">#000000</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        <item name="background">@color/background</item>-->
+<!--        <item name="textcolor">#ffffff</item>-->
+<!--        <item name="cardcolor">#424242</item>-->
+<!--    </style>-->
 
 </resources>

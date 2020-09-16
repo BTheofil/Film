@@ -1,23 +1,19 @@
 package com.example.films.view
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.Category
 import com.example.films.model.Movie
+import com.example.films.util.ColorUtils
 import com.example.films.viewmodel.CategoryDataViewModel
-import com.example.films.viewmodel.MovieDataViewModel
-import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_details.*
-import kotlinx.android.synthetic.main.activity_details_category.*
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -43,6 +39,17 @@ class DetailsActivity : AppCompatActivity() {
         movie_imageD.setImageResource(item.image)
 
         initRecyclerView(item.categoryArrayList)
+
+
+        val isNightMode: Boolean = ColorUtils.isDarkTheme(this)
+
+        btn.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(if(isNightMode){
+                AppCompatDelegate.MODE_NIGHT_NO
+            } else AppCompatDelegate.MODE_NIGHT_YES)
+
+            delegate.applyDayNight()
+        }
     }
     private fun initRecyclerView(categories :List<Category>) {
         categoryD.apply {
@@ -51,19 +58,7 @@ class DetailsActivity : AppCompatActivity() {
             categoryAdapter.setData(categories)
             adapter = categoryAdapter
         }
-//        movieViewModel.movieDataLiveData.observe(this,
-//            Observer<List<Movie>> { movies ->
-//                movieAdapter.submitList(movies)
-//            })
-//        categoryViewModel.categoryDataLiveData.observe(this,
-//            Observer<List<Category>> { c ->
-//                categoryAdapter.submitList(c)
-//            })
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        return super.onOptionsItemSelected(item)
     }
 
     companion object{

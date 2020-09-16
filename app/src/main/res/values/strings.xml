@@ -12,5 +12,7 @@
     <string name="menu_searchView">menu_searchview</string>
     <string name="sampleDes">description</string>
     <string name="movie_rate">Movie rate</string>
+    <string name="move_year">Move year</string>
+    <string name="movie_title_here">Movie title here</string>
 
 </resources>

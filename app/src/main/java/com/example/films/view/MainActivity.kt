@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     private lateinit var movieViewModel: MovieDataViewModel
 
 //    private var eyp: ClipData.Item? = null
-//    internal lateinit var sharedPref: SharedPref
+//    internal late init var sharedPref: SharedPref
 
 //    private val appSettingsPrefs: SharedPreferences = getSharedPreferences("AppSettingsPrefs", 0)
 //    private val sharedPrefsEdit: SharedPreferences.Editor = appSettingsPrefs.edit()
