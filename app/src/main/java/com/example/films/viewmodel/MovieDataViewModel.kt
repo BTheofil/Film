@@ -21,8 +21,14 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
         movieDataLiveData.value = originalData
     }
 
-    fun filter(pattern: String?) {
+    fun search(pattern: String?) {
         Executors.newSingleThreadExecutor().execute {
+            val r = filter(pattern)
+            movieDataLiveData.postValue(r)
+        }
+    }
+
+    fun filter(pattern: String?): MutableList<Movie> {
             val filteredData = mutableListOf<Movie>()
 
             if (pattern != null && pattern.isNotEmpty()) {
@@ -36,8 +42,7 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             } else {
                 filteredData.addAll(originalData)
             }
-            movieDataLiveData.postValue(filteredData)
-        }
+            return filteredData //movieDataLiveData.postValue(filteredData)
     }
 
     fun sortByRatingAsc() {

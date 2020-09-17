@@ -2,6 +2,7 @@ package com.example.films
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
@@ -34,14 +35,14 @@ class MainActivityTest {
     fun test_writeToCharAndClick() {
 
         val rndString = "abcdefgh"
-        var sb: StringBuilder
-        sb.append(rndString.toCharArray(0, Random.nextInt(rndString.length)))
+        var sb = StringBuilder()
+        //sb.append(rndString.toCharArray(0, Random.nextInt(rndString.length)))
 
-        val colors = arrayOf("red", "blue", "yellow")
-        val randomColor = colors.random()
+//        val colors = arrayOf("red", "blue", "yellow")
+//        val randomColor = colors.random()
 
         onView(withId(R.id.search)).perform(click())
-        onView(withId(R.id.search_src_text)).perform(typeText(randomColor))
+       // onView(withId(R.id.search_src_text)).perform(typeText(sb))
 
         onView(withId(R.id.recycler_view)).perform()
 
