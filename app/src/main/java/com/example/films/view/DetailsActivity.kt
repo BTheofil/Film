@@ -39,17 +39,6 @@ class DetailsActivity : AppCompatActivity() {
         movie_imageD.setImageResource(item.image)
 
         initRecyclerView(item.categoryArrayList)
-
-
-        val isNightMode: Boolean = ColorUtils.isDarkTheme(this)
-
-        btn.setOnClickListener {
-            AppCompatDelegate.setDefaultNightMode(if(isNightMode){
-                AppCompatDelegate.MODE_NIGHT_NO
-            } else AppCompatDelegate.MODE_NIGHT_YES)
-
-            delegate.applyDayNight()
-        }
     }
     private fun initRecyclerView(categories :List<Category>) {
         categoryD.apply {

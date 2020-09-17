@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.view.menu.MenuView
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
@@ -22,9 +23,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.Movie
+import com.example.films.util.ColorUtils
 import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
 import com.example.films.viewmodel.MovieDataViewModel
 import com.example.films.viewmodel.TopSpacingItemDecoration
+import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickListener {
@@ -42,20 +45,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     // live data >:(
     private lateinit var movieViewModel: MovieDataViewModel
 
-//    private var eyp: ClipData.Item? = null
-//    internal late init var sharedPref: SharedPref
-
-//    private val appSettingsPrefs: SharedPreferences = getSharedPreferences("AppSettingsPrefs", 0)
-//    private val sharedPrefsEdit: SharedPreferences.Editor = appSettingsPrefs.edit()
-//    private val isNightModeOn: Boolean = appSettingsPrefs.getBoolean("NightMode", false)
-
     override fun onCreate(savedInstanceState: Bundle?) {
-//        sharedPref = SharedPref(this)
-//        if (sharedPref.loadNightModeState() == true) {
-//            setTheme(R.style.DarkTheme)
-//        } else {
-//            setTheme(R.style.AppTheme)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -81,26 +71,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
 
         initRecyclerView()
 
-//        eyp = findViewById<View>(R.id.darkButton) as ClipData.Item?
-//        if (sharedPref.loadNightModeState() == true) {
-//            eyp!!.isChecked = true
-//        }
-//
-//        eyp!!.setOnCheckedChangeListener {, isChecked ->
-//            if (isChecked) {
-//                sharedPref.setNightModeState(true)
-//                restartApp()
-//            } else {
-//                sharedPref.setNightModeState(false)
-//                restartApp()
-//            }
-//        }
-//        }
-//        if (isNightModeOn) {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//        } else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
+
     }
 
     private fun initRecyclerView() {
@@ -122,12 +93,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     // search
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-
-//       if (check(R.id.darkButton)) {
-////            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-////            return true
-////        }
-
         val searchItem = menu.findItem(R.id.search)
         if (searchItem != null) {
             val searchView = searchItem.actionView as SearchView
@@ -188,19 +153,17 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
             return true
         }
 
-//        if (item.itemId == R.id.darkButton) {
-//
-//            if (isNightModeOn) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                sharedPrefsEdit.putBoolean("NightMode", false)
-//                sharedPrefsEdit.apply()
-//            } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                sharedPrefsEdit.putBoolean("NightMode", true)
-//                sharedPrefsEdit.apply()
-//            }
-//        }
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        when (item.itemId) {
+            R.id.darkButton -> {
+                val isNightMode: Boolean = ColorUtils.isDarkTheme(this)
+                AppCompatDelegate.setDefaultNightMode(
+                    if (isNightMode) {
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    } else AppCompatDelegate.MODE_NIGHT_YES
+                )
+                delegate.applyDayNight()
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -210,12 +173,7 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         intent.putExtra(SELECT_MOVIE, item)
         startActivity(intent)
     }
-
-//    fun restartApp() {
-//        val i = Intent(applicationContext, MainActivity::class.java)
-//        startActivity(i)
-//        finish()
-//    }
+    
 }
 
 
