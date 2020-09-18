@@ -31,11 +31,6 @@ class CategoryRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     override fun getItemCount() = items.size
-
-//    fun submitList(CList: List<Category>) {
-//        items = CList
-//        notifyDataSetChanged()
-//    }
 }
 
 class CategoryViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {

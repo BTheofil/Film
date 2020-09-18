@@ -23,13 +23,14 @@ import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
 import com.example.films.viewmodel.MovieDataViewModel
 import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
 class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickListener {
 
     private lateinit var movieAdapter: MovieRecyclerAdapter
 
     // menu need that
-    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var toggle: ActionBarDrawerToggle
 
     // sorting
     private lateinit var preferences: SharedPreferences
@@ -43,6 +44,12 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        val listFrag = ListFragment()
+//        supportFragmentManager.beginTransaction().apply {
+//            replace(R.id.fragmentFL, listFrag)
+//            commit()
+//        }
+
         movieViewModel = ViewModelProvider(this).get(MovieDataViewModel::class.java)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
@@ -55,17 +62,13 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.Rating -> sortDialog(0)
-
                 R.id.Realise -> sortDialog(1)
             }
 
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-
         initRecyclerView()
-
-
     }
 
     private fun initRecyclerView() {

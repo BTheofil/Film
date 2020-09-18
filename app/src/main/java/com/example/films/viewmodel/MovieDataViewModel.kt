@@ -28,7 +28,7 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun filter(pattern: String?): MutableList<Movie> {
+    private fun filter(pattern: String?): MutableList<Movie> {
             val filteredData = mutableListOf<Movie>()
 
             if (pattern != null && pattern.isNotEmpty()) {
