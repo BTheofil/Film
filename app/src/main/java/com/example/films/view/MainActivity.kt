@@ -15,19 +15,13 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
-import com.example.films.model.Movie
 import com.example.films.util.ColorUtils
 import com.example.films.view.DetailsActivity.Companion.SELECT_MOVIE
 import com.example.films.viewmodel.MovieDataViewModel
-import com.example.films.viewmodel.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_list.*
 
-class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickListener {
-
-    private lateinit var movieAdapter: MovieRecyclerAdapter
+class MainActivity : AppCompatActivity() {
 
     // menu need that
     private lateinit var toggle: ActionBarDrawerToggle
@@ -43,14 +37,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        val listFrag = ListFragment()
-//        supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.fragmentFL, listFrag)
-//            commit()
-//        }
-
-        movieViewModel = ViewModelProvider(this).get(MovieDataViewModel::class.java)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -68,24 +54,24 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-        initRecyclerView()
+
+        movieViewModel = ViewModelProvider(this).get(MovieDataViewModel::class.java)
+
+        val mainFragment =MainFragment()
+        mainFragment.movieViewModel = movieViewModel
+
+        supportFragmentManager.beginTransaction()
+            .replace(main_fragment_container.id ,mainFragment)
+            .commit()
+
+        movieViewModel.selectedMovieLiveData.observe(this, Observer {
+            val intent = Intent(this, DetailsActivity::class.java)
+            intent.putExtra(SELECT_MOVIE, it)
+            startActivity(intent)
+        })
+
     }
 
-    private fun initRecyclerView() {
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            val topSpacingItemDecoration =
-                TopSpacingItemDecoration(30)
-            addItemDecoration(topSpacingItemDecoration)
-            movieAdapter = MovieRecyclerAdapter(this@MainActivity)
-            adapter = movieAdapter
-        }
-        // subscribe
-        movieViewModel.movieDataLiveData.observe(this,
-            Observer<List<Movie>> { movies ->
-                movieAdapter.submitList(movies)
-            })
-    }
 
     // search
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -164,13 +150,6 @@ class MainActivity : AppCompatActivity(), MovieRecyclerAdapter.OnMovieItemClickL
         return super.onOptionsItemSelected(item)
     }
 
-    // clickable items
-    override fun onItemClick(item: Movie, position: Int) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra(SELECT_MOVIE, item)
-        startActivity(intent)
-    }
-    
 }
 
 

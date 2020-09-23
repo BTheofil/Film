@@ -15,6 +15,7 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
     private val originalData: List<Movie>
 
     val movieDataLiveData: MutableLiveData<MutableList<Movie>> = MutableLiveData()
+    val selectedMovieLiveData: MutableLiveData<Movie> = MutableLiveData()
 
     init {
         originalData = DataSource.createDataSet()
@@ -26,6 +27,10 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             val r = filter(pattern)
             movieDataLiveData.postValue(r)
         }
+    }
+
+    fun selectMovie(movie: Movie){
+        selectedMovieLiveData.value = movie
     }
 
     private fun filter(pattern: String?): MutableList<Movie> {

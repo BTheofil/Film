@@ -17,12 +17,11 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
     private var items: List<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val v = MovieViewHolder(
+        return MovieViewHolder(
             LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.layout_movies_list_item, parent, false)
         )
-        return v
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
