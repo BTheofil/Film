@@ -1,14 +1,9 @@
 package com.example.films.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import com.example.films.R
-import com.example.films.model.Category
 import com.example.films.model.Movie
-import com.example.films.viewmodel.CategoryDataViewModel
 import kotlinx.android.synthetic.main.activity_details.*
 
 

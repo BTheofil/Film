@@ -44,10 +44,13 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
         private val movieDetails: TextView = itemView.movie_details
 
         fun bind(movie: Movie, action: OnMovieItemClickListener) {
-            movieTitle.text = movie.title
-            movieYear.text = movie.year.toString()
-            movieRating.text = movie.rating.toString()
-            movieDetails.text = movie.details
+
+            movie.apply {
+                movieTitle.text = title
+                movieYear.text = year.toString()
+                movieRating.text = rating.toString()
+                movieDetails.text = details
+            }
 
             itemView.setOnClickListener{
                 action.onItemClick(movie, adapterPosition)

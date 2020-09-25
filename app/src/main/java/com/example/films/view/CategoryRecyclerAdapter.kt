@@ -31,6 +31,7 @@ class CategoryRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     override fun getItemCount() = items.size
+
 }
 
 class CategoryViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -39,4 +40,5 @@ class CategoryViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
     fun bind(topic: Category) {
         categoryTopic.text = topic.name
     }
+
 }
