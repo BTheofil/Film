@@ -11,10 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.Movie
@@ -30,16 +32,12 @@ import kotlinx.android.synthetic.main.toolbar_main.*
 
 class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener {
 
-    var movieViewModel: MovieDataViewModel? = null
+    lateinit  var movieViewModel: MovieDataViewModel
     private lateinit var movieAdapter: MovieRecyclerAdapter
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var preferences: SharedPreferences
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -52,18 +50,18 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
     }
 
     override fun onItemClick(item: Movie, position: Int) {
-        movieViewModel?.selectMovie(item)
+        movieViewModel.selectMovie(item)
     }
 
     private fun initDrawer() {
 
-        toggle = ActionBarDrawerToggle(activity, drawerLayout, R.string.open, R.string.close)
+        toggle = ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         (activity as AppCompatActivity).apply {
             setSupportActionBar(toolbar)
-            //TODO toggle button beállitása
+            //TODO toggle button settings
         }
 
         preferences = requireActivity().getSharedPreferences(MainActivity.SEARCH_PREFERENCES, Context.MODE_PRIVATE)
@@ -81,12 +79,11 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
     private fun initSearchView() {
         searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                searchview.onActionViewCollapsed()
                 return true
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                movieViewModel?.search(text)
+                movieViewModel.search(text)
                 return false
             }
         })
@@ -102,7 +99,7 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
             adapter = movieAdapter
         }
         // subscribe
-        movieViewModel?.movieDataLiveData?.observe(
+        movieViewModel.movieDataLiveData.observe(
             viewLifecycleOwner,
             Observer<List<Movie>> { movies ->
                 movieAdapter.submitList(movies)
@@ -142,16 +139,16 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
 
     private fun doWhenASC(searchType: SearchType){
         when (searchType) {
-            SearchType.RATING -> movieViewModel?.sortByRatingAsc()
-            SearchType.REALISE -> movieViewModel?.sortByRealiseAsc()
+            SearchType.RATING -> movieViewModel.sortByRatingAsc()
+            SearchType.REALISE -> movieViewModel.sortByRealiseAsc()
         }
         Snackbar.make(drawerLayout, R.string.Asc_order, Snackbar.LENGTH_LONG).show()
     }
 
     private fun doWhenDESC(searchType: SearchType){
         when (searchType) {
-            SearchType.RATING -> movieViewModel?.sortByRatingDes()
-            SearchType.REALISE -> movieViewModel?.sortByRealiseDes()
+            SearchType.RATING -> movieViewModel.sortByRatingDes()
+            SearchType.REALISE -> movieViewModel.sortByRealiseDes()
         }
         Snackbar.make(drawerLayout, R.string.Desc_order, Snackbar.LENGTH_LONG).show()
     }

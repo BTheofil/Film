@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.model.Category
 import com.example.films.model.Movie
+import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment() {
 
     private lateinit var categoryAdapter: CategoryRecyclerAdapter
-    var movie: Movie? =null
+    var movie: Movie? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
