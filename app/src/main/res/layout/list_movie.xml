@@ -42,7 +42,6 @@
                     android:id="@+id/movie_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_semibold"
                     android:text="@string/titlesMovie"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +63,6 @@
                     android:layout_height="21dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/rating"
-                    app:drawableLeftCompat="@drawable/ic_baseline_star_24"
                     app:layout_constraintTop_toBottomOf="@+id/movie_title"
                     tools:ignore="MissingConstraints" />
 

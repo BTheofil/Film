@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Films</string>
+    <string name="app_name">BetterFilms</string>
+
     <string name="details">Details from movie</string>
     <string name="titlesMovie">Movie name here</string>
     <string name="year">edition</string>
@@ -7,18 +8,16 @@
     <string name="movie_imageDcd">movieImageDContentDescription</string>
     <string name="movie_image">movieImage</string>
 
-    <string name="open">Open</string>
-    <string name="close">Close</string>
-    <string name="menu_searchView">menu_searchview</string>
-    <string name="sampleDes">description</string>
     <string name="movie_rate">Movie rate</string>
     <string name="move_year">Move year</string>
     <string name="movie_title_here">Movie title here</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sampleDes">description</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
     <string name="Asc_order">Ascending order</string>
     <string name="Desc_order">Descending order</string>
     <string name="Sort_by">Sort By</string>
-
+    <string name="Movie_title">%s(%s)</string>
 </resources>

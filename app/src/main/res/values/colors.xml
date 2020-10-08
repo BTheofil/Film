@@ -12,5 +12,7 @@
     <color name="textColor">#4E4C4C</color>
     <color name="cardColor">#C1C1B4</color>
 
+    <color name="textOnImage">#ffffff</color>
+
     <color name="mainBackground">#ffffff</color>
 </resources>

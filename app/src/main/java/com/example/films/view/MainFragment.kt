@@ -19,23 +19,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.betterfilms.R
-import com.example.betterfilms.adapter.MovieRecycleAdapter
-import com.example.betterfilms.listener.AdapterListener
-import com.example.betterfilms.model.Movie
-import com.example.betterfilms.util.ColorUtil.isDarkTheme
-import com.example.betterfilms.util.OrderType
-import com.example.betterfilms.util.SearchType
-import com.example.betterfilms.viewmodel.MovieDataViewModel
 import com.example.films.R
 import com.example.films.adapter.MovieRecycleAdapter
 import com.example.films.listener.AdapterListener
 import com.example.films.model.Movie
+import com.example.films.util.ColorUtils.isDarkTheme
 import com.example.films.util.OrderType
 import com.example.films.util.SearchType
 import com.example.films.viewmodel.MovieDataViewModel
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 
 class MainFragment : Fragment(), AdapterListener {

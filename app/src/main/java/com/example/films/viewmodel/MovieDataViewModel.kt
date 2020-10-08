@@ -5,8 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.films.model.DataSource
 import com.example.films.model.Movie
-import com.example.films.view.MovieRecyclerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import java.util.concurrent.Executors
 
