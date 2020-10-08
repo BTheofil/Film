@@ -1,93 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.DetailsFragment">
 
-    <ImageView
-        android:id="@+id/imageD_frag"
-        android:layout_width="0dp"
-        android:layout_height="500dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.DetailsFragment">
 
-    <TextView
-        android:id="@+id/titleD_frag"
-        android:layout_width="169dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:fontFamily="@font/raleway_semibold"
-        android:text="@string/movie_title_here"
-        android:textColor="@color/textColor"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageD_frag"
-        app:layout_constraintEnd_toEndOf="@+id/imageD_frag"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageD_frag"
-        app:layout_constraintTop_toTopOf="@+id/imageD_frag"
-        app:layout_constraintVertical_bias="0.834" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_on_back"/>
 
-    <TextView
-        android:id="@+id/yearD_frag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="286dp"
-        android:text="@string/move_year"
-        android:textColor="@color/textColor"
-        app:layout_constraintEnd_toEndOf="@+id/imageD_frag"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/titleD_frag"
-        app:layout_constraintTop_toTopOf="@+id/imageD_frag"
-        android:layout_marginStart="16dp" />
-
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageD_frag">
+        <ImageView
+            android:id="@+id/imageD_frag"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:src="@drawable/pirates"
+            android:scaleType="center"/>
 
         <TextView
-            android:id="@+id/detailsD_frag"
-            android:layout_width="match_parent"
+            android:id="@+id/titleD_frag"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/sampleDes"
-            android:textColor="@color/textColor"
-            android:textSize="20sp" />
-    </ScrollView>
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/movie_title_here"
+            android:textColor="@color/textOnImage"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/imageD_frag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ratingD_frag" />
 
-    <TextView
-        android:id="@+id/ratingD_frag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/movie_rate"
-        android:textColor="@color/textColor"
-        app:drawableLeftCompat="@drawable/ic_baseline_star_24"
-        app:layout_constraintStart_toEndOf="@+id/titleD_frag"
-        app:layout_constraintTop_toBottomOf="@+id/yearD_frag" />
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageD_frag">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoryD_frag"
-        android:layout_width="306dp"
-        android:layout_height="45dp"
-        android:layout_marginHorizontal="16dp"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toBottomOf="@+id/imageD_frag"
-        app:layout_constraintEnd_toEndOf="@+id/imageD_frag"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageD_frag"
-        app:layout_constraintTop_toBottomOf="@+id/titleD_frag"
-        tools:listitem="@layout/activity_details_category" />
+            <TextView
+                android:id="@+id/detailsD_frag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sampleDes"
+                android:textSize="20sp"
+                android:textColor="@color/mainText"/>
+        </ScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoryD_frag"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="@+id/imageD_frag"
+            app:layout_constraintEnd_toEndOf="@+id/imageD_frag"
+            app:layout_constraintStart_toStartOf="@+id/imageD_frag"
+            tools:listitem="@layout/category_item" />
+
+        <TextView
+            android:id="@+id/ratingD_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/movie_rate"
+            app:drawableLeftCompat="@drawable/ic_baseline_star_24"
+            app:layout_constraintStart_toStartOf="@+id/imageD_frag"
+            app:layout_constraintBottom_toTopOf="@+id/categoryD_frag"
+            android:textColor="@color/textOnImage"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

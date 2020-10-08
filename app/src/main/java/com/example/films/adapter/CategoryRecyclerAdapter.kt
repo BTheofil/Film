@@ -1,4 +1,4 @@
-package com.example.films.view
+package com.example.films.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
 import com.example.films.model.Category
-import kotlinx.android.synthetic.main.activity_details_category.view.*
+import kotlinx.android.synthetic.main.category_item.view.*
 
-class CategoryRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CategoryRecycleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<Category> = ArrayList()
 
@@ -22,7 +22,7 @@ class CategoryRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         return CategoryViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.activity_details_category, parent, false)
+                .inflate(R.layout.category_item, parent, false)
         )
     }
 

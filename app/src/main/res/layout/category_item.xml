@@ -10,9 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
         android:background="@drawable/topic_background"
-        android:fontFamily="@font/raleway_semibold"
         android:paddingHorizontal="16dp"
         android:text="topic name"
-        android:textColor="@color/mainBackground" />
+        android:textColor="@color/mainText"/>
 
 </LinearLayout>

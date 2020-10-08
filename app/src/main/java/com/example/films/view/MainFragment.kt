@@ -11,69 +11,81 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.betterfilms.R
+import com.example.betterfilms.adapter.MovieRecycleAdapter
+import com.example.betterfilms.listener.AdapterListener
+import com.example.betterfilms.model.Movie
+import com.example.betterfilms.util.ColorUtil.isDarkTheme
+import com.example.betterfilms.util.OrderType
+import com.example.betterfilms.util.SearchType
+import com.example.betterfilms.viewmodel.MovieDataViewModel
 import com.example.films.R
+import com.example.films.adapter.MovieRecycleAdapter
+import com.example.films.listener.AdapterListener
 import com.example.films.model.Movie
-import com.example.films.util.ColorUtils
 import com.example.films.util.OrderType
 import com.example.films.util.SearchType
 import com.example.films.viewmodel.MovieDataViewModel
-import com.example.films.viewmodel.TopSpacingItemDecoration
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 
+class MainFragment : Fragment(), AdapterListener {
 
-class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener {
-
-    lateinit  var movieViewModel: MovieDataViewModel
-    private lateinit var movieAdapter: MovieRecyclerAdapter
+    private lateinit var drawerLayout:DrawerLayout
+    private  lateinit var navigationView: NavigationView
+    lateinit var navController: NavController
+    lateinit var movieDataViewModel: MovieDataViewModel
+    private lateinit var movieAdapter: MovieRecycleAdapter
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var preferences: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        movieDataViewModel = MovieDataViewModel(requireActivity().application)
         initRecyclerView()
-        initSwitchNightMode()
         initSearchView()
+        initSwitchNightMode()
         initDrawer()
     }
 
-    override fun onItemClick(item: Movie, position: Int) {
-        movieViewModel.selectMovie(item)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    private fun initDrawer() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment_container)
 
-        toggle = ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+    }
 
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolbar)
-            //TODO toggle button settings
+    override fun onClickItem(movie: Movie) {
+        val bundle = bundleOf("movie" to movie)
+        navController.navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
+
+    }
+
+    private fun initRecyclerView() {
+        movie_recycler_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            movieAdapter =
+                MovieRecycleAdapter(this@MainFragment)
+            adapter = movieAdapter
         }
 
-        preferences = requireActivity().getSharedPreferences(MainActivity.SEARCH_PREFERENCES, Context.MODE_PRIVATE)
-        navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.Rating -> sortDialog(SearchType.RATING)
-                R.id.Realise -> sortDialog(SearchType.REALISE)
-            }
-
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
+        movieDataViewModel.movieDataLiveData.observe(viewLifecycleOwner, Observer { movies ->
+            movieAdapter.submitList(movies)
+        })
     }
 
     private fun initSearchView() {
@@ -83,32 +95,15 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                movieViewModel.search(text)
+                movieDataViewModel.search(text)
                 return false
             }
         })
     }
 
-    private fun initRecyclerView() {
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(context)
-            val topSpacingItemDecoration =
-                TopSpacingItemDecoration(30)
-            addItemDecoration(topSpacingItemDecoration)
-            movieAdapter = MovieRecyclerAdapter(this@MainFragment)
-            adapter = movieAdapter
-        }
-        // subscribe
-        movieViewModel.movieDataLiveData.observe(
-            viewLifecycleOwner,
-            Observer<List<Movie>> { movies ->
-                movieAdapter.submitList(movies)
-            })
-    }
-
     private fun initSwitchNightMode() {
         bt_night.setOnClickListener {
-            val isNightMode: Boolean = ColorUtils.isDarkTheme(requireActivity())
+            val isNightMode: Boolean = isDarkTheme(requireActivity())
             AppCompatDelegate.setDefaultNightMode(
                 if (isNightMode) {
                     AppCompatDelegate.MODE_NIGHT_NO
@@ -120,12 +115,35 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
         }
     }
 
+    private fun initDrawer() {
+
+        drawerLayout =  requireActivity().findViewById(R.id.drawer_layout)
+        navigationView =  requireActivity().findViewById(R.id.navView)
+
+        toggle = ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string.open, R.string.close)
+        toggle.isDrawerIndicatorEnabled = true
+
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        preferences = requireActivity().getSharedPreferences(MainActivity.SEARCH_PREFERENCES, Context.MODE_PRIVATE)
+        navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.Rating -> sortDialog(SearchType.RATING)
+                R.id.Realise -> sortDialog(SearchType.REALISE)
+            }
+
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+    }
+
     private fun sortDialog(searchType: SearchType) {
         val options = resources.getStringArray(R.array.order_type)
 
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.Sort_by)
-            .setIcon(R.drawable.ic_action_sort_foreground)
+            .setIcon(R.drawable.ic_sort)
             .setItems(options) { _, orderTypePosition ->
                 preferences.edit().putInt(MainActivity.SORT_PREFERENCE, orderTypePosition).apply()
 
@@ -139,16 +157,16 @@ class MainFragment() : Fragment(), MovieRecyclerAdapter.OnMovieItemClickListener
 
     private fun doWhenASC(searchType: SearchType){
         when (searchType) {
-            SearchType.RATING -> movieViewModel.sortByRatingAsc()
-            SearchType.REALISE -> movieViewModel.sortByRealiseAsc()
+            SearchType.RATING -> movieDataViewModel.sortByRatingAsc()
+            SearchType.REALISE -> movieDataViewModel.sortByRealiseAsc()
         }
         Snackbar.make(drawerLayout, R.string.Asc_order, Snackbar.LENGTH_LONG).show()
     }
 
     private fun doWhenDESC(searchType: SearchType){
         when (searchType) {
-            SearchType.RATING -> movieViewModel.sortByRatingDes()
-            SearchType.REALISE -> movieViewModel.sortByRealiseDes()
+            SearchType.RATING -> movieDataViewModel.sortByRatingDes()
+            SearchType.REALISE -> movieDataViewModel.sortByRealiseDes()
         }
         Snackbar.make(drawerLayout, R.string.Desc_order, Snackbar.LENGTH_LONG).show()
     }

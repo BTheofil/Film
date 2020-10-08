@@ -1,4 +1,4 @@
-package com.example.films.view
+package com.example.films.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.films.R
-import com.example.films.model.Movie
-import kotlinx.android.synthetic.main.layout_movies_list_item.view.*
+import com.example.betterfilms.R
+import com.example.betterfilms.listener.AdapterListener
+import com.example.betterfilms.model.Movie
+import kotlinx.android.synthetic.main.list_movie.view.*
 
-class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieRecycleAdapter(private var adapterListener: AdapterListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
     private var items: List<Movie> = ArrayList()
 
@@ -20,12 +21,16 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
         return MovieViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.layout_movies_list_item, parent, false)
+                .inflate(R.layout.list_movie, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        MovieViewHolder(holder.itemView).bind(items[position], clickListener)
+        MovieViewHolder(holder.itemView)
+            .bind(items[position])
+        holder.itemView.setOnClickListener{
+            adapterListener.onClickItem(items[position]);
+        }
     }
 
     override fun getItemCount() = items.size
@@ -35,7 +40,7 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val movieImage: ImageView = itemView.movie_image
         private val movieTitle: TextView = itemView.movie_title
@@ -43,17 +48,13 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
         private val movieRating: TextView = itemView.movie_rating
         private val movieDetails: TextView = itemView.movie_details
 
-        fun bind(movie: Movie, action: OnMovieItemClickListener) {
+        fun bind(movie: Movie) {
 
             movie.apply {
                 movieTitle.text = title
                 movieYear.text = year.toString()
                 movieRating.text = rating.toString()
                 movieDetails.text = details
-            }
-
-            itemView.setOnClickListener{
-                action.onItemClick(movie, adapterPosition)
             }
 
             val requestOption = RequestOptions()
@@ -64,10 +65,8 @@ class MovieRecyclerAdapter(var clickListener: OnMovieItemClickListener) : Recycl
                 .applyDefaultRequestOptions(requestOption)
                 .load(movie.image)
                 .into(movieImage)
-        }
-    }
 
-    interface OnMovieItemClickListener {
-        fun onItemClick(item: Movie, position: Int)
+        }
+
     }
 }
