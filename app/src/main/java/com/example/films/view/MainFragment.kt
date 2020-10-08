@@ -2,15 +2,19 @@ package com.example.films.view
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -83,6 +87,12 @@ class MainFragment : Fragment(), AdapterListener {
     }
 
     private fun initSearchView() {
+        val ll: LinearLayout = searchview.getChildAt(0) as LinearLayout
+        val ll2: LinearLayout = ll.getChildAt(2) as LinearLayout
+        val ll3: LinearLayout = ll2.getChildAt(1) as LinearLayout
+        val autoComplete = ll3.getChildAt(0) as SearchView.SearchAutoComplete
+        autoComplete.setHintTextColor(ContextCompat.getColor(requireContext(),R.color.actionIcons))
+        autoComplete.setTextColor(ContextCompat.getColor(requireContext(),R.color.actionIcons))
         searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true

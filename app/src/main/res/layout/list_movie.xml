@@ -7,7 +7,9 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="2dp"
     app:cardElevation="10dp"
-    app:cardPreventCornerOverlap="false">
+    app:cardPreventCornerOverlap="false"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginBottom="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:background="@color/cardColor">
 
                 <TextView
                     android:id="@+id/movie_title"
@@ -44,18 +47,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/titlesMovie"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/movie_year"
-                    android:layout_width="50dp"
-                    android:layout_height="22dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="36dp"
-                    android:text="@string/year"
-                    app:layout_constraintStart_toEndOf="@+id/movie_rating"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/mainText"/>
 
                 <TextView
                     android:id="@+id/movie_rating"
@@ -64,7 +57,9 @@
                     android:layout_marginTop="20dp"
                     android:text="@string/rating"
                     app:layout_constraintTop_toBottomOf="@+id/movie_title"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    app:drawableLeftCompat="@drawable/ic_baseline_star_24"
+                    android:textColor="@color/mainText"/>
 
                 <TextView
                     android:id="@+id/movie_details"
@@ -77,7 +72,8 @@
                     app:layout_constraintHorizontal_bias="0.526"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/movie_rating"
-                    app:layout_constraintVertical_bias="0.098" />
+                    app:layout_constraintVertical_bias="0.098"
+                    android:textColor="@color/mainText"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

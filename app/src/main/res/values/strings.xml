@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BetterFilms</string>
+    <string name="app_name">Movies</string>
 
     <string name="details">Details from movie</string>
     <string name="titlesMovie">Movie name here</string>

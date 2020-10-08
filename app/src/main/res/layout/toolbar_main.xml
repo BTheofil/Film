@@ -23,17 +23,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/app_name"
+                    android:gravity="center"
+                    android:textColor="@color/actionIcons"
+                    android:textSize="21sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/searchview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="24dp"
+                    style="@style/MySearchView"
+                    android:paddingStart="100dp"
+                    android:paddingLeft="100dp"
                     android:paddingEnd="0dp"
-                    app:layout_constraintStart_toEndOf="@android:id/home"
+                    android:paddingRight="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/bt_night"
                     app:layout_constraintTop_toTopOf="parent"
                     app:searchIcon="@drawable/ic_action_search"
+                    app:closeIcon="@drawable/ic_baseline_close_24"
+                    app:searchHintIcon="@drawable/ic_action_search"
                     tools:ignore="UnusedAttribute" />
 
                 <ImageButton

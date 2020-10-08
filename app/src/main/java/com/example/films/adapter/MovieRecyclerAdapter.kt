@@ -1,10 +1,12 @@
 package com.example.films.adapter
 
+import android.content.ContentResolver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -44,15 +46,13 @@ class MovieRecycleAdapter(private var adapterListener: AdapterListener) : Recycl
 
         private val movieImage: ImageView = itemView.movie_image
         private val movieTitle: TextView = itemView.movie_title
-        private val movieYear: TextView = itemView.movie_year
         private val movieRating: TextView = itemView.movie_rating
         private val movieDetails: TextView = itemView.movie_details
 
         fun bind(movie: Movie) {
 
             movie.apply {
-                movieTitle.text = title
-                movieYear.text = year.toString()
+                movieTitle.text = itemView.context.getString(R.string.Movie_title,title,year.toString())
                 movieRating.text = rating.toString()
                 movieDetails.text = details
             }
