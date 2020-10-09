@@ -1,6 +1,6 @@
 package com.example.films.util
 
-enum class OrderType () {
+enum class OrderType{
     ASC,
     DESC
 }

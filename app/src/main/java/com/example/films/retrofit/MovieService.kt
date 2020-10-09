@@ -1,17 +1,15 @@
 package com.example.films.retrofit
 
 import com.example.films.model.MovieList
-import com.example.films.retrofit.Retrofit.retrofit
+import com.example.films.retrofit.Retrofit.service
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MovieService(private val retrofitAnswer: RetrofitAnswer) : Callback<MovieList?> {
 
-    private val service: RetrofitCallInterface = retrofit.create(RetrofitCallInterface::class.java)
-
     fun getMovieList() {
-        val call: Call<MovieList> = service.listRepos(Retrofit.API_KEY)
+        val call: Call<MovieList> = service.listMovies(Retrofit.API_KEY)
         call.enqueue(this)
     }
 

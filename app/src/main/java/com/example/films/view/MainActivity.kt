@@ -9,7 +9,6 @@ import com.example.films.R
 import com.example.films.viewmodel.MovieDataViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var movieDataViewModel: MovieDataViewModel
@@ -46,5 +45,3 @@ class MainActivity : AppCompatActivity() {
         const val SORT_PREFERENCE = "SORT"
     }
 }
-
-

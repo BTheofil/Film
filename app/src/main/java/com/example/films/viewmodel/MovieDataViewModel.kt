@@ -6,8 +6,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.films.model.Movie
 import com.example.films.model.MovieList
+import com.example.films.retrofit.CategoryService
 import com.example.films.retrofit.MovieService
 import com.example.films.retrofit.RetrofitAnswer
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
@@ -16,11 +18,13 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var originalData: MutableList<Movie> = ArrayList()
     private val movieService = MovieService(this)
+    private val categoryService = CategoryService(this)
 
     val movieDataLiveData: MutableLiveData<MutableList<Movie>> = MutableLiveData()
 
     init {
         movieService.getMovieList()
+        categoryService.getCategoryList()
     }
 
     override fun onSuccessAnswer(answerObject: Any?) {
@@ -54,36 +58,51 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun sortByRatingAsc() {
         Executors.newSingleThreadExecutor().execute {
-            val movies: MutableList<Movie> = movieDataLiveData.value!!
-            movies.sortWith(compareBy { it.rating })
-            movieDataLiveData.postValue(movies)
+            try {
+                val movies: MutableList<Movie> = movieDataLiveData.value!!
+                movies.sortWith(compareBy { it.rating })
+                movieDataLiveData.postValue(movies)
+            }catch (e: Exception){
+                return@execute
+            }
         }
     }
 
     fun sortByRatingDes() {
-
         Executors.newSingleThreadExecutor().execute {
+            try {
             val movies: MutableList<Movie> = movieDataLiveData.value!!
             movies.sortWith(compareBy { it.rating })
             movies.reverse()
             movieDataLiveData.postValue(movies)
+            }catch (e: Exception){
+                return@execute
+            }
         }
     }
 
     fun sortByRealiseAsc() {
         Executors.newSingleThreadExecutor().execute {
+            try {
             val movies: MutableList<Movie> = movieDataLiveData.value!!
             movies.sortWith(compareBy { it.year })
-            movieDataLiveData.postValue(movies)   //setter
+            movieDataLiveData.postValue(movies)
+            }catch (e: Exception){
+                return@execute
+            }
         }
     }
 
     fun sortByRealiseDes() {
         Executors.newSingleThreadExecutor().execute {
+            try {
             val movies: MutableList<Movie> = movieDataLiveData.value!!
             movies.sortWith(compareBy { it.year })
             movies.reverse()
             movieDataLiveData.postValue(movies)
+            }catch (e: Exception){
+                return@execute
+            }
         }
     }
 

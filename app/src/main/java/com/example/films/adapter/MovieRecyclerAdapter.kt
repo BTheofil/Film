@@ -6,12 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
 import com.example.films.listener.AdapterListener
 import com.example.films.model.Movie
-import com.example.films.retrofit.Retrofit
 import com.example.films.util.ImageLoader
 import kotlinx.android.synthetic.main.list_movie.view.*
 
@@ -19,13 +16,12 @@ class MovieRecycleAdapter(private var adapterListener: AdapterListener) : Recycl
 
     private var items: List<Movie> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MovieViewHolder(
-            LayoutInflater
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        MovieViewHolder(
+                LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.list_movie, parent, false)
         )
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         MovieViewHolder(holder.itemView)

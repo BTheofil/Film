@@ -19,5 +19,4 @@ object ImageLoader {
             .load(Retrofit.IMAGE_STORAGE_BASE_URL.plus(image))
             .into(targetView)
     }
-
 }

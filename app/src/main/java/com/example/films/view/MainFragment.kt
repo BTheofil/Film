@@ -2,8 +2,6 @@ package com.example.films.view
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,10 +44,8 @@ class MainFragment : Fragment(), AdapterListener {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var preferences: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_main, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
