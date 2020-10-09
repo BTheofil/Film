@@ -1,18 +1,18 @@
 package com.example.films.adapter
 
-import android.content.ContentResolver
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
 import com.example.films.listener.AdapterListener
 import com.example.films.model.Movie
+import com.example.films.retrofit.Retrofit
+import com.example.films.util.ImageLoader
 import kotlinx.android.synthetic.main.list_movie.view.*
 
 class MovieRecycleAdapter(private var adapterListener: AdapterListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
@@ -57,15 +57,7 @@ class MovieRecycleAdapter(private var adapterListener: AdapterListener) : Recycl
                 movieDetails.text = details
             }
 
-            val requestOption = RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-
-            Glide.with(itemView.context)
-                .applyDefaultRequestOptions(requestOption)
-                .load(movie.image)
-                .into(movieImage)
-
+            movie.image?.let { ImageLoader.loadImage(itemView.context, it, movieImage) }
         }
 
     }

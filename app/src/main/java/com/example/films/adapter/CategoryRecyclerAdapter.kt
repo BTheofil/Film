@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
-import com.example.films.model.Category
 import kotlinx.android.synthetic.main.category_item.view.*
 
 class CategoryRecycleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<Category> = ArrayList()
+    private var items: List<Int> = ArrayList()
 
-    fun setData(categories : List<Category>){
+    fun setData(categories : List<Int>){
         items = categories
         notifyDataSetChanged()
     }
@@ -37,8 +36,8 @@ class CategoryRecycleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 class CategoryViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
     private  val categoryTopic: TextView = itemView.topic
 
-    fun bind(topic: Category) {
-        categoryTopic.text = topic.name
+    fun bind(topic: Int) {
+        categoryTopic.text = topic.toString()
     }
 
 }

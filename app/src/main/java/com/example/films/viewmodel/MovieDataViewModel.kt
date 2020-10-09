@@ -1,23 +1,48 @@
 package com.example.films.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.films.model.DataSource
 import com.example.films.model.Movie
+import com.example.films.model.MovieList
+import com.example.films.retrofit.MovieService
+import com.example.films.retrofit.RetrofitAnswer
 import java.util.*
 import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 
-class MovieDataViewModel(application: Application) : AndroidViewModel(application) {
+class MovieDataViewModel(application: Application) : AndroidViewModel(application), RetrofitAnswer {
 
-    private val originalData: List<Movie>
+    private var originalData: MutableList<Movie> = ArrayList()
+    private val movieService = MovieService(this)
 
     val movieDataLiveData: MutableLiveData<MutableList<Movie>> = MutableLiveData()
-    val selectedMovieLiveData: MutableLiveData<Movie> = MutableLiveData()
 
     init {
-        originalData = DataSource.createDataSet()
-        movieDataLiveData.value = originalData
+        movieService.getMovieList()
+    }
+
+    override fun onSuccessAnswer(answerObject: Any?) {
+        if(answerObject is MovieList) {
+            if(answerObject.list !=null) {
+                originalData = answerObject.list!!.toMutableList()
+                movieDataLiveData.value = originalData
+            } else {
+                originalData = ArrayList()
+                movieDataLiveData.value = originalData
+            }
+        }else{
+            Log.d("retrofit",this::class.simpleName + "Wrong answer type!")
+        }
+    }
+
+    override fun onFailureAnswer(error: String) {
+        Log.d("retrofit",error)
+    }
+
+    override fun onFailure(error: String) {
+        Log.d("retrofit",error)
     }
 
     fun search(pattern: String?) {
@@ -25,27 +50,6 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             val r = filter(pattern)
             movieDataLiveData.postValue(r)
         }
-    }
-
-    fun selectMovie(movie: Movie){
-        selectedMovieLiveData.value = movie
-    }
-
-    private fun filter(pattern: String?): MutableList<Movie> {
-            val filteredData = mutableListOf<Movie>()
-
-            if (pattern != null && pattern.isNotEmpty()) {
-                filteredData.clear()
-                val search = pattern.toLowerCase(Locale.getDefault())
-                originalData.forEach {
-                    if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
-                        filteredData.add(it)
-                    }
-                }
-            } else {
-                filteredData.addAll(originalData)
-            }
-            return filteredData //movieDataLiveData.postValue(filteredData)
     }
 
     fun sortByRatingAsc() {
@@ -81,5 +85,22 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             movies.reverse()
             movieDataLiveData.postValue(movies)
         }
+    }
+
+    private fun filter(pattern: String?): MutableList<Movie> {
+        val filteredData = mutableListOf<Movie>()
+
+        if (pattern != null && pattern.isNotEmpty()) {
+            filteredData.clear()
+            val search = pattern.toLowerCase(Locale.getDefault())
+            originalData.forEach {
+                if (it.title.toLowerCase(Locale.getDefault()).contains(search)) {
+                    filteredData.add(it)
+                }
+            }
+        } else {
+            filteredData.addAll(originalData)
+        }
+        return filteredData
     }
 }
