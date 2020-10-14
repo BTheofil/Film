@@ -99,7 +99,9 @@ class MainFragment : Fragment(), AdapterListener {
             }
 
             override fun onQueryTextChange(text: String?): Boolean {
-                movieDataViewModel.search(text)
+                if(!searchview.isIconified) {
+                    movieDataViewModel.search(text)
+                }
                 return false
             }
         })
