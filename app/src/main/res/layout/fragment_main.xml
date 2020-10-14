@@ -23,6 +23,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_container" />
 
+        <include
+            android:id="@+id/empty_movie"
+            layout="@layout/empty_state"
+            android:visibility="gone"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

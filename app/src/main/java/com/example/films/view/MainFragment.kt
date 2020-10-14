@@ -55,12 +55,15 @@ class MainFragment : Fragment(), AdapterListener {
         initSearchView()
         initSwitchNightMode()
         initDrawer()
+
+        movieDataViewModel.errorLiveData.observe(viewLifecycleOwner, Observer { error ->
+            view?.let { Snackbar.make(it, error, Snackbar.LENGTH_LONG).show() }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment_container)
-
     }
 
     override fun onClickItem(movie: Movie) {
@@ -79,6 +82,7 @@ class MainFragment : Fragment(), AdapterListener {
 
         movieDataViewModel.movieDataLiveData.observe(viewLifecycleOwner, Observer { movies ->
             movieAdapter.submitList(movies)
+            setEmptyMovieView(movies.isEmpty())
         })
     }
 
@@ -169,5 +173,15 @@ class MainFragment : Fragment(), AdapterListener {
             SearchType.REALISE -> movieDataViewModel.sortByRealiseDes()
         }
         Snackbar.make(drawerLayout, R.string.Desc_order, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun setEmptyMovieView(visible: Boolean){
+        if(visible) {
+            movie_recycler_view.visibility = View.GONE
+            empty_movie.visibility = View.VISIBLE
+        } else{
+            movie_recycler_view.visibility = View.VISIBLE
+            empty_movie.visibility = View.GONE
+        }
     }
 }

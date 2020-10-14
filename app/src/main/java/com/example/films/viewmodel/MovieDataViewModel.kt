@@ -18,13 +18,12 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var originalData: MutableList<Movie> = ArrayList()
     private val movieService = MovieService(this)
-    private val categoryService = CategoryService(this)
 
     val movieDataLiveData: MutableLiveData<MutableList<Movie>> = MutableLiveData()
+    val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     init {
         movieService.getMovieList()
-        categoryService.getCategoryList()
     }
 
     override fun onSuccessAnswer(answerObject: Any?) {
@@ -37,16 +36,18 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
                 movieDataLiveData.value = originalData
             }
         }else{
-            Log.d("retrofit",this::class.simpleName + "Wrong answer type!")
+            Log.d(RETROFIT_TAG,this::class.simpleName + "Wrong answer type!")
         }
     }
 
     override fun onFailureAnswer(error: String) {
-        Log.d("retrofit",error)
+        movieDataLiveData.value = originalData
+        errorLiveData.value = error
     }
 
     override fun onFailure(error: String) {
-        Log.d("retrofit",error)
+        movieDataLiveData.value = originalData
+        errorLiveData.value = error
     }
 
     fun search(pattern: String?) {
@@ -121,5 +122,9 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
             filteredData.addAll(originalData)
         }
         return filteredData
+    }
+
+    companion object{
+        const val RETROFIT_TAG ="retrofit"
     }
 }
