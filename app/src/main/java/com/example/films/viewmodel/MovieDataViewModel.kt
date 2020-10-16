@@ -4,11 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.films.util.ProgressState
 import com.example.films.model.Movie
 import com.example.films.model.MovieList
-import com.example.films.retrofit.CategoryService
 import com.example.films.retrofit.MovieService
 import com.example.films.retrofit.RetrofitAnswer
+import com.example.films.util.Language
 import java.lang.Exception
 import java.util.*
 import java.util.concurrent.Executors
@@ -21,33 +22,43 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
 
     val movieDataLiveData: MutableLiveData<MutableList<Movie>> = MutableLiveData()
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
+    val stateChangeLiveData: MutableLiveData<ProgressState> = MutableLiveData()
 
     init {
-        movieService.getMovieList()
+        stateChangeLiveData.value = ProgressState.LOADING
+        movieService.getMovieList("en-EN")
     }
 
     override fun onSuccessAnswer(answerObject: Any?) {
         if(answerObject is MovieList) {
             if(answerObject.list !=null) {
                 originalData = answerObject.list!!.toMutableList()
-                movieDataLiveData.value = originalData
+                stateChangeLiveData.value = ProgressState.FILLED
             } else {
                 originalData = ArrayList()
-                movieDataLiveData.value = originalData
+                stateChangeLiveData.value = ProgressState.EMPTY
             }
+            movieDataLiveData.value = originalData
         }else{
-            Log.d(RETROFIT_TAG,this::class.simpleName + "Wrong answer type!")
+            val error = this::class.simpleName + "Wrong answer type!"
+            Log.d(RETROFIT_TAG,error)
+            errorLiveData.value = error
+            stateChangeLiveData.value = ProgressState.EMPTY
         }
     }
 
     override fun onFailureAnswer(error: String) {
-        movieDataLiveData.value = originalData
         errorLiveData.value = error
+        stateChangeLiveData.value = ProgressState.EMPTY
     }
 
     override fun onFailure(error: String) {
-        movieDataLiveData.value = originalData
         errorLiveData.value = error
+        stateChangeLiveData.value = ProgressState.EMPTY
+    }
+
+    fun selectLanguage(lan: Language){
+        movieService.getMovieList(lan.s)
     }
 
     fun search(pattern: String?) {

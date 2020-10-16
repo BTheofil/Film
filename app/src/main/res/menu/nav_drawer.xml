@@ -9,4 +9,8 @@
         android:id="@+id/Realise"
         android:title="@string/realise_label"/>
 
+    <item
+        android:id="@+id/Language"
+        android:title="Select language"/>
+
 </menu>

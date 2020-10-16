@@ -11,7 +11,8 @@ interface RetrofitCallInterface {
 
     @GET("movie/now_playing")
     fun listMovies(
-        @Query("api_key") apiKey : String
+        @Query("api_key") apiKey : String,
+        @Query("language") language : String
     ): Call<MovieList>
 
     @GET("genre/movie/list")

@@ -40,7 +40,7 @@ class MovieRecycleAdapter(private var adapterListener: AdapterListener) : Recycl
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val movieImage: ImageView = itemView.movie_image
+        private val movieImage: ImageView = itemView.empty_image
         private val movieTitle: TextView = itemView.movie_title
         private val movieRating: TextView = itemView.movie_rating
         private val movieDetails: TextView = itemView.movie_details

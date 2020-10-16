@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar_container"
-        layout="@layout/toolbar_main"/>
+        <include
+            android:id="@+id/toolbar_container"
+            layout="@layout/toolbar_main" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler_view"
@@ -23,10 +23,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_container" />
 
+        <com.google.android.material.progressindicator.ProgressIndicator
+            android:id="@+id/circularProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate"
+            app:indicatorColor="?attr/colorPrimary"
+            android:visibility="gone"
+            app:trackColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <include
             android:id="@+id/empty_movie"
             layout="@layout/empty_state"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

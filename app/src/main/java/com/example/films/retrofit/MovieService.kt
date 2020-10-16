@@ -8,8 +8,8 @@ import retrofit2.Response
 
 class MovieService(private val retrofitAnswer: RetrofitAnswer) : Callback<MovieList?> {
 
-    fun getMovieList() {
-        val call: Call<MovieList> = service.listMovies(Retrofit.API_KEY)
+    fun getMovieList(selectedLang: String) {
+        val call: Call<MovieList> = service.listMovies(Retrofit.API_KEY, selectedLang)
         call.enqueue(this)
     }
 

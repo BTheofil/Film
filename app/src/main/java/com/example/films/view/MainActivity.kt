@@ -43,5 +43,6 @@ class MainActivity : AppCompatActivity() {
     companion object{
         const val SEARCH_PREFERENCES = "SEARCH_PREFERENCES"
         const val SORT_PREFERENCE = "SORT"
+        const val LANGUAGE_PREFERENCE = "LAN_PREF"
     }
 }
