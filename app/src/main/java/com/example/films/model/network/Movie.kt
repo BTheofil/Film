@@ -1,4 +1,4 @@
-package com.example.films.model
+package com.example.films.model.network
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

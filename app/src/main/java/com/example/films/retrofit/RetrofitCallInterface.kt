@@ -1,9 +1,8 @@
 package com.example.films.retrofit
 
-import com.example.films.model.CategoryList
-import com.example.films.model.MovieList
+import com.example.films.model.network.CategoryList
+import com.example.films.model.network.MovieList
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Query
 

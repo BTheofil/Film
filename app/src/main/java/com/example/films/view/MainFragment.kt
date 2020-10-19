@@ -25,8 +25,7 @@ import com.example.films.R
 import com.example.films.adapter.MovieRecycleAdapter
 import com.example.films.util.ProgressState
 import com.example.films.listener.AdapterListener
-import com.example.films.model.Movie
-import com.example.films.retrofit.MovieService
+import com.example.films.model.network.Movie
 import com.example.films.util.ColorUtils.isDarkTheme
 import com.example.films.util.Language
 import com.example.films.util.OrderType
@@ -170,7 +169,7 @@ class MainFragment : Fragment(), AdapterListener {
         val options = resources.getStringArray(R.array.language)
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Select language")
+            .setTitle(getString(R.string.languageSelection))
             .setItems(options) { _, orderTypePosition ->
                 preferences.edit().putInt(MainActivity.LANGUAGE_PREFERENCE, orderTypePosition).apply()
 

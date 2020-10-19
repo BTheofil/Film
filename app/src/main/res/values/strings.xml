@@ -23,5 +23,6 @@
     <string name="realise_label">Realise</string>
     <string name="empty_title">No Results</string>
     <string name="empty_text">Check your internet connection</string>
+    <string name="languageSelection">Select language</string>
 
 </resources>

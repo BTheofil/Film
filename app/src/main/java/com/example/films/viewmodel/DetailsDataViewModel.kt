@@ -1,12 +1,11 @@
 package com.example.films.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.films.model.Category
-import com.example.films.model.CategoryList
-import com.example.films.model.Movie
+import com.example.films.model.network.Category
+import com.example.films.model.network.CategoryList
+import com.example.films.model.network.Movie
 import com.example.films.retrofit.CategoryService
 import com.example.films.retrofit.RetrofitAnswer
 

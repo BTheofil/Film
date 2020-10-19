@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.films.util.ProgressState
-import com.example.films.model.Movie
-import com.example.films.model.MovieList
+import com.example.films.model.network.Movie
+import com.example.films.model.network.MovieList
 import com.example.films.retrofit.MovieService
 import com.example.films.retrofit.RetrofitAnswer
 import com.example.films.util.Language

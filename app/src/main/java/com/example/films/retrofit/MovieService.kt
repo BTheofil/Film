@@ -1,6 +1,6 @@
 package com.example.films.retrofit
 
-import com.example.films.model.MovieList
+import com.example.films.model.network.MovieList
 import com.example.films.retrofit.Retrofit.service
 import retrofit2.Call
 import retrofit2.Callback

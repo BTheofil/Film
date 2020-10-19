@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
 import com.example.films.listener.AdapterListener
-import com.example.films.model.Movie
+import com.example.films.model.network.Movie
 import com.example.films.util.ImageLoader
 import kotlinx.android.synthetic.main.list_movie.view.*
 
