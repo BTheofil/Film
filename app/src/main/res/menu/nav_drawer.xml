@@ -11,6 +11,10 @@
 
     <item
         android:id="@+id/Language"
-        android:title="Select language"/>
+        android:title="@string/select_language"/>
+
+    <item
+        android:id="@+id/listFavourite"
+        android:title="@string/show_favourite"/>
 
 </menu>

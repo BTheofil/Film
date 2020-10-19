@@ -8,17 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
 import com.example.films.listener.AdapterListener
+import com.example.films.model.entity.FavouriteMovie
 import com.example.films.model.network.Movie
 import com.example.films.util.ImageLoader
 import kotlinx.android.synthetic.main.list_movie.view.*
 
-class MovieRecycleAdapter(private var adapterListener: AdapterListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+class FavouriteMovieRecycleAdapter(private var adapterListener: AdapterListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
-    private var items: List<Movie> = ArrayList()
+    private var items: List<FavouriteMovie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         MovieViewHolder(
-                LayoutInflater
+            LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.list_movie, parent, false)
         )
@@ -26,14 +27,11 @@ class MovieRecycleAdapter(private var adapterListener: AdapterListener) : Recycl
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         MovieViewHolder(holder.itemView)
             .bind(items[position])
-        holder.itemView.setOnClickListener{
-            adapterListener.onClickItem(items[position]);
-        }
     }
 
     override fun getItemCount() = items.size
 
-    fun submitList(movieList: List<Movie>) {
+    fun submitList(movieList: List<FavouriteMovie>) {
         items = movieList
         notifyDataSetChanged()
     }
@@ -45,15 +43,15 @@ class MovieRecycleAdapter(private var adapterListener: AdapterListener) : Recycl
         private val movieRating: TextView = itemView.fmovie_rating
         private val movieDetails: TextView = itemView.fmovie_details
 
-        fun bind(movie: Movie) {
+        fun bind(movie: FavouriteMovie) {
 
             movie.apply {
                 movieTitle.text = itemView.context.getString(R.string.Movie_title,title,year.toString())
-                movieRating.text = rating.toString()
-                movieDetails.text = details
+                movieRating.text = rate
+                movieDetails.text = description
             }
 
-            movie.image?.let { ImageLoader.loadImage(itemView.context, it, movieImage) }
+            movie.image.let { ImageLoader.loadImage(itemView.context, it, movieImage) }
         }
 
     }

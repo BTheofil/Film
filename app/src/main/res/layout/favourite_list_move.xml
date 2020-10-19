@@ -49,6 +49,14 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:textColor="@color/mainText"/>
 
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ic_favorite_24"
+                    app:layout_constraintStart_toEndOf="@id/fmovie_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/fmovie_rating"
                     android:layout_width="130dp"

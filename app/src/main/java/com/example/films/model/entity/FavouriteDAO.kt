@@ -6,17 +6,14 @@ import androidx.room.*
 @Dao
 interface FavouriteDAO {
     @Query("SELECT * FROM favourite_movies")
-    fun getAll(): List<FavouriteMovie>
+    fun getAll(): LiveData<List<FavouriteMovie>>
 
-    @Query("SELECT * FROM favourite_movies WHERE title LIKE :title")
-    fun findByTitle(title: String): LiveData<List<FavouriteMovie>>
-
-    @Insert
-    fun insertAll(vararg movie: FavouriteMovie)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addMovie(movie: FavouriteMovie)
 
     @Delete
     fun delete(movie: FavouriteMovie)
 
     @Update
-    fun updateTodo(vararg movies: FavouriteMovie)
+    fun updateFavouriteMovies(vararg movies: FavouriteMovie)
 }

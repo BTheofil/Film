@@ -33,7 +33,7 @@ class MainActivityTest {
 
         onView(withId(R.id.movie_recycler_view)).perform()
 
-        onView(withId(R.id.movie_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.fmovie_title)).check(matches(isDisplayed()))
 
     }
 }

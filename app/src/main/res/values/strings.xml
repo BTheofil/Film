@@ -24,5 +24,7 @@
     <string name="empty_title">No Results</string>
     <string name="empty_text">Check your internet connection</string>
     <string name="languageSelection">Select language</string>
+    <string name="show_favourite">Show favourite</string>
+    <string name="select_language">Select language</string>
 
 </resources>
