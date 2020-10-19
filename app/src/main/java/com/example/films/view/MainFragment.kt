@@ -176,7 +176,7 @@ class MainFragment : Fragment(), AdapterListener {
 
                 when(orderTypePosition) {
                     Language.EN.ordinal -> movieDataViewModel.selectLanguage(Language.EN)
-                    Language.HU.ordinal -> movieDataViewModel.selectLanguage(Language.EN)
+                    Language.HU.ordinal -> movieDataViewModel.selectLanguage(Language.HU)
                     Language.FR.ordinal -> movieDataViewModel.selectLanguage(Language.FR)
                 }
             }.create().show()

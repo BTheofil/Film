@@ -58,7 +58,7 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun selectLanguage(lan: Language){
-        movieService.getMovieList(lan.s)
+        movieService.getMovieList(lan.type)
     }
 
     fun search(pattern: String?) {
