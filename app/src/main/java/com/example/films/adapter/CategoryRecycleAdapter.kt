@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.R
-import com.example.films.model.network.Category
+import com.example.films.model.Category
 import kotlinx.android.synthetic.main.category_item.view.*
 
 class CategoryRecycleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {

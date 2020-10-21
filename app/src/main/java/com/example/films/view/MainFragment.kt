@@ -18,18 +18,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
-import com.example.films.adapter.FavouriteMovieRecycleAdapter
 import com.example.films.adapter.MovieRecycleAdapter
 import com.example.films.util.ProgressState
-import com.example.films.listener.AdapterListener
-import com.example.films.model.entity.FavouriteMovie
-import com.example.films.model.entity.FavouriteMovieViewModel
-import com.example.films.model.network.Movie
+import com.example.films.adapter.listener.AdapterListener
+import com.example.films.model.Movie
 import com.example.films.util.ColorUtils.isDarkTheme
 import com.example.films.util.Language
 import com.example.films.util.OrderType
@@ -38,10 +34,8 @@ import com.example.films.viewmodel.MovieDataViewModel
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.list_movie.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import kotlinx.android.synthetic.main.toolbar_main.toolbar
-import kotlinx.android.synthetic.main.toolbar_on_back.view.*
 
 class MainFragment : Fragment(), AdapterListener {
 
@@ -52,33 +46,9 @@ class MainFragment : Fragment(), AdapterListener {
     private lateinit var movieAdapter: MovieRecycleAdapter
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var preferences: SharedPreferences
-    private lateinit var fMovieViewModel: FavouriteMovieViewModel
-    private lateinit var favouriteMovieRecycleAdapter: FavouriteMovieRecycleAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_main, container, false)
-
-        fMovieViewModel = ViewModelProvider(this).get(FavouriteMovieViewModel::class.java)
-        fMovieViewModel.readAllData.observe(viewLifecycleOwner, Observer { fmovie ->
-            favouriteMovieRecycleAdapter.submitList(fmovie)
-        })
-
-        view.favourite.setOnClickListener{
-            insertDataToDataBase()
-        }
-
-        return view
-    }
-
-    private fun insertDataToDataBase() {
-        val title = fmovie_title.text.toString()
-        val image = fempty_image.toString()
-        val rate = fmovie_rating.text.toString()
-        val description = fmovie_details.text.toString()
-
-        val fmovie = FavouriteMovie(0, title, image, 0, rate, description)
-        fMovieViewModel.addMovie(fmovie)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_main, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -122,9 +92,7 @@ class MainFragment : Fragment(), AdapterListener {
             view?.let { Snackbar.make(it, error, Snackbar.LENGTH_LONG).show() }
         })
 
-        movieDataViewModel.stateChangeLiveData.observe(
-            viewLifecycleOwner,
-            Observer { progressState ->
+        movieDataViewModel.stateChangeLiveData.observe(viewLifecycleOwner, Observer { progressState ->
                 setMovieView(progressState)
             })
 
@@ -189,11 +157,16 @@ class MainFragment : Fragment(), AdapterListener {
                 R.id.Rating -> sortDialog(SearchType.RATING)
                 R.id.Realise -> sortDialog(SearchType.REALISE)
                 R.id.Language -> selectLanguage()
+                R.id.listFavourite -> showFavouriteList()
             }
 
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+    }
+
+    private fun showFavouriteList() {
+        movieDataViewModel.loadFavouriteMovies()
     }
 
     private fun selectLanguage(){

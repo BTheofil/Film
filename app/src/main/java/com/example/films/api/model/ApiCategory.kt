@@ -1,8 +1,8 @@
-package com.example.films.model.network
+package com.example.films.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Category (
+data class ApiCategory (
     @SerializedName("id")
     var id: Int,
     @SerializedName("name")

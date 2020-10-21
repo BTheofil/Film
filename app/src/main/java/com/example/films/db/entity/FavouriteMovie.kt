@@ -1,4 +1,4 @@
-package com.example.films.model.entity
+package com.example.films.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -14,5 +14,4 @@ data class FavouriteMovie (
     @ColumnInfo(name = "year") var year: Int,
     @ColumnInfo(name = "rate") var rate: String,
     @ColumnInfo(name = "description") var description: String
-
 )

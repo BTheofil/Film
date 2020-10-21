@@ -5,60 +5,67 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.films.util.ProgressState
-import com.example.films.model.network.Movie
-import com.example.films.model.network.MovieList
-import com.example.films.retrofit.MovieService
-import com.example.films.retrofit.RetrofitAnswer
+import com.example.films.model.Movie
+import com.example.films.api.service.ApiMovieService
+import com.example.films.db.service.DBMovieService
+import com.example.films.viewmodel.listener.DataSourceAnswer
+import com.example.films.model.MovieList
 import com.example.films.util.Language
 import java.lang.Exception
 import java.util.*
 import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
 
-class MovieDataViewModel(application: Application) : AndroidViewModel(application), RetrofitAnswer {
+class MovieDataViewModel(application: Application) : AndroidViewModel(application),
+    DataSourceAnswer {
 
     private var originalData: MutableList<Movie> = ArrayList()
-    private val movieService = MovieService(this)
+    private val apiMovieService = ApiMovieService(this)
+    private val dbMovieService =  DBMovieService(application,this)
 
     val movieDataLiveData: MutableLiveData<MutableList<Movie>> = MutableLiveData()
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
     val stateChangeLiveData: MutableLiveData<ProgressState> = MutableLiveData()
 
     init {
-        stateChangeLiveData.value = ProgressState.LOADING
-        movieService.getMovieList("en-EN")
+        stateChangeLiveData.postValue(ProgressState.LOADING)
+        apiMovieService.getMovieList("en-EN")
     }
 
     override fun onSuccessAnswer(answerObject: Any?) {
         if(answerObject is MovieList) {
             if(answerObject.list !=null) {
                 originalData = answerObject.list!!.toMutableList()
-                stateChangeLiveData.value = ProgressState.FILLED
+                stateChangeLiveData.postValue(ProgressState.FILLED)
             } else {
                 originalData = ArrayList()
-                stateChangeLiveData.value = ProgressState.EMPTY
+                stateChangeLiveData.postValue(ProgressState.EMPTY)
             }
-            movieDataLiveData.value = originalData
+            movieDataLiveData.postValue(originalData)
         }else{
             val error = this::class.simpleName + "Wrong answer type!"
-            Log.d(RETROFIT_TAG,error)
-            errorLiveData.value = error
-            stateChangeLiveData.value = ProgressState.EMPTY
+            Log.d(ERROR_TAG,error)
+            errorLiveData.postValue(error)
+            stateChangeLiveData.postValue(ProgressState.EMPTY)
         }
     }
 
     override fun onFailureAnswer(error: String) {
-        errorLiveData.value = error
-        stateChangeLiveData.value = ProgressState.EMPTY
+        errorLiveData.postValue(error)
+        stateChangeLiveData.postValue(ProgressState.EMPTY)
     }
 
     override fun onFailure(error: String) {
-        errorLiveData.value = error
-        stateChangeLiveData.value = ProgressState.EMPTY
+        errorLiveData.postValue(error)
+        stateChangeLiveData.postValue(ProgressState.EMPTY)
     }
 
     fun selectLanguage(lan: Language){
-        movieService.getMovieList(lan.type)
+        apiMovieService.getMovieList(lan.type)
+    }
+
+    fun loadFavouriteMovies(){
+        dbMovieService.getAllFavouriteMovie()
     }
 
     fun search(pattern: String?) {
@@ -136,6 +143,6 @@ class MovieDataViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     companion object{
-        const val RETROFIT_TAG ="retrofit"
+        const val ERROR_TAG = "MyError"
     }
 }

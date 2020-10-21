@@ -5,7 +5,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.films.R
-import com.example.films.retrofit.Retrofit
+import com.example.films.api.retrofit.Retrofit
 
 object ImageLoader {
 

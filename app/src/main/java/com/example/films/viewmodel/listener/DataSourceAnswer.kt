@@ -1,6 +1,6 @@
-package com.example.films.retrofit
+package com.example.films.viewmodel.listener
 
-interface RetrofitAnswer {
+interface DataSourceAnswer {
     fun onSuccessAnswer(answerObject : Any?)
     fun onFailureAnswer(error : String)
     fun onFailure(error : String)

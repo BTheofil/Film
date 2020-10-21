@@ -26,5 +26,6 @@
     <string name="languageSelection">Select language</string>
     <string name="show_favourite">Show favourite</string>
     <string name="select_language">Select language</string>
+    <string name="database_empty">Database is empty!</string>
 
 </resources>

@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.adapter.CategoryRecycleAdapter
-import com.example.films.model.network.Movie
+import com.example.films.model.Movie
 import com.example.films.util.ImageLoader
 import com.example.films.viewmodel.DetailsDataViewModel
 import com.google.android.material.snackbar.Snackbar

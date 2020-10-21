@@ -3,19 +3,20 @@ package com.example.films.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.films.model.network.Category
-import com.example.films.model.network.CategoryList
-import com.example.films.model.network.Movie
-import com.example.films.retrofit.CategoryService
-import com.example.films.retrofit.RetrofitAnswer
+import com.example.films.model.Category
+import com.example.films.model.Movie
+import com.example.films.api.service.ApiCategoryService
+import com.example.films.viewmodel.listener.DataSourceAnswer
+import com.example.films.model.CategoryList
 
-class DetailsDataViewModel(application: Application, private val selectedMovie: Movie) : AndroidViewModel(application), RetrofitAnswer {
+class DetailsDataViewModel(application: Application, private val selectedMovie: Movie) : AndroidViewModel(application),
+    DataSourceAnswer {
 
     val categoriesLiveData: MutableLiveData<MutableList<Category>> = MutableLiveData()
     val errorLiveData: MutableLiveData<String> = MutableLiveData()
 
     init {
-        CategoryService(this).getCategoryList()
+        ApiCategoryService(this).getCategoryList()
     }
 
     override fun onSuccessAnswer(answerObject: Any?) {
@@ -38,9 +39,5 @@ class DetailsDataViewModel(application: Application, private val selectedMovie: 
 
     override fun onFailure(error: String) {
         errorLiveData.value = error
-    }
-
-    companion object{
-        const val RETROFIT_TAG ="retrofit"
     }
 }

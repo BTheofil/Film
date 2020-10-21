@@ -1,7 +1,7 @@
-package com.example.films.retrofit
+package com.example.films.api.retrofit
 
-import com.example.films.model.network.CategoryList
-import com.example.films.model.network.MovieList
+import com.example.films.api.model.ApiCategoryList
+import com.example.films.api.model.ApiMovieList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,10 +12,10 @@ interface RetrofitCallInterface {
     fun listMovies(
         @Query("api_key") apiKey : String,
         @Query("language") language : String
-    ): Call<MovieList>
+    ): Call<ApiMovieList>
 
     @GET("genre/movie/list")
     fun listCategory(
         @Query("api_key") apiKey : String
-    ): Call<CategoryList>
+    ): Call<ApiCategoryList>
 }

@@ -1,4 +1,4 @@
-package com.example.films.retrofit
+package com.example.films.api.retrofit
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

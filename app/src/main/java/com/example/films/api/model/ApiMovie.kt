@@ -1,11 +1,11 @@
-package com.example.films.model.network
+package com.example.films.api.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
-data class Movie(
+data class ApiMovie(
     @SerializedName("title")
     var title: String,
     @SerializedName("release_date")
