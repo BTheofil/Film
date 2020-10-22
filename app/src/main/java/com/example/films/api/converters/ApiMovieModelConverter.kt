@@ -30,7 +30,7 @@ object ApiMovieModelConverter {
     fun apiMovieListToMovieList(apiMovieList: ApiMovieList): MovieList {
         val movies = ArrayList<Movie>()
         apiMovieList.list?.forEach { apiMovie ->
-            movies.add(ApiMovieModelConverter.apiMovieModelToMovieModel(apiMovie))
+            movies.add(apiMovieModelToMovieModel(apiMovie))
         }
         return MovieList(movies)
     }
