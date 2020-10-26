@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.films.R
 import com.example.films.db.DB
 import com.example.films.db.FavouriteDAO
+import com.example.films.db.converters.DbMovieModelConverter
+import com.example.films.db.entity.DbFavouriteMovieList
 import com.example.films.db.entity.FavouriteMovie
 import com.example.films.viewmodel.listener.DataSourceAnswer
 import kotlinx.coroutines.GlobalScope
@@ -19,7 +21,8 @@ class DBMovieService(private val context: Context, private val dataSourceAnswer:
             if (favourites.isEmpty()) {
                 dataSourceAnswer.onFailureAnswer(context.getString(R.string.database_empty))
             } else {
-                dataSourceAnswer.onSuccessAnswer("")//TODO converted movies list
+                val dbFavouriteMovieList = DbFavouriteMovieList(favourites)
+                dataSourceAnswer.onSuccessAnswer(DbMovieModelConverter.dbMovieListToMovieList(dbFavouriteMovieList))
             }
         }
     }

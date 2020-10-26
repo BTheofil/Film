@@ -14,8 +14,8 @@ data class FavouriteMovie (
 
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "image") var image: String,
-    @ColumnInfo(name = "year") var year: Date,
+    @ColumnInfo(name = "realiseDate") var releaseDate: Long,
     @ColumnInfo(name = "rate") var rate: Int,
     @ColumnInfo(name = "description") var description: String,
-    @ColumnInfo(name = "category") var categoryList: ArrayList<Int>
+    @ColumnInfo(name = "category") var categoryList: String
 )

@@ -51,6 +51,10 @@ class DetailsFragment : Fragment() {
         back.setOnClickListener{
             findNavController().navigateUp()
         }
+
+        favourite.setOnClickListener {
+            detailsDataViewModel.addFavourite(selectedMovie)
+        }
     }
 
     private fun initRecyclerView() {

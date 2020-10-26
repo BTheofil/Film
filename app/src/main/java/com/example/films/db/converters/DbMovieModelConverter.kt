@@ -4,18 +4,22 @@ import com.example.films.db.entity.DbFavouriteMovieList
 import com.example.films.db.entity.FavouriteMovie
 import com.example.films.model.Movie
 import com.example.films.model.MovieList
+import java.util.*
+import kotlin.collections.ArrayList
 
 object DbMovieModelConverter {
 
-    fun dbMovieModelToMovieModel(favouriteMovie: FavouriteMovie): Movie =
-        Movie(
+    fun dbMovieModelToMovieModel(favouriteMovie: FavouriteMovie): Movie {
+
+        return Movie(
             title = favouriteMovie.title,
             image = favouriteMovie.image,
-            releaseDate = favouriteMovie.year,
+            releaseDate = Date(favouriteMovie.releaseDate),
             rating = favouriteMovie.rate,
             details = favouriteMovie.description,
-            categoryArrayList = favouriteMovie.categoryList
+            categoryArrayList = stringToArrayListCategory(favouriteMovie.categoryList)
         )
+    }
 
     fun dbMovieListToMovieList(favouriteMovieList: DbFavouriteMovieList): MovieList {
         val movies = ArrayList<Movie>()
@@ -24,4 +28,14 @@ object DbMovieModelConverter {
         }
         return MovieList(movies)
     }
+
+    private fun stringToArrayListCategory(categoryListString: String): ArrayList<Int>{
+        val result = categoryListString.removeSurrounding("[", "]").split(",").map { it.toInt() }
+        return ArrayList(result)
+    }
+
+    fun ArrayListToStringCategory(categoryListString: ArrayList<Int>): String{
+        return categoryListString.joinToString()
+    }
+
 }
